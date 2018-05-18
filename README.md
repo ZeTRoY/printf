@@ -1,2 +1,2 @@
 # printf
-The function "printf" of C libriry with some of its options.
+The function "printf" of C library with some of its options.

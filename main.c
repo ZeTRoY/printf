@@ -22,8 +22,8 @@ void	ft_whatisit(char *tmp, char c)
 
 	i = 0;
 	if (*(tmp + 1) == c)
-		/*
-		*/
+	{
+	}
 }
 
 int		ft_printf(char *str, ...)
