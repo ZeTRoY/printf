@@ -6,69 +6,79 @@
 /*   By: aroi <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/19 15:18:48 by aroi              #+#    #+#             */
-/*   Updated: 2018/05/19 15:50:19 by aroi             ###   ########.fr       */
+/*   Updated: 2018/05/27 15:23:50 by aroi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdarg.h>
+#include "libft.h"
+
 #include <stdio.h>
 
-int		ft_count_qnt(char *str)
+void	ft_isdecimal(char *str, va_list argPointer);
+void	ft_isstring(char *str, va_list argPointer);
+void	ft_ischar(char *str, va_list argPointer);
+
+void	ft_whatisit(char *str, va_list argPointer, int *j)
 {
 	int i;
-	int qnt;
 
 	i = -1;
-	qnt = 0;
-	if (str)
-		while (str[++i])
-			if (str[i] == '%' && str[i + 1] = '%' &&
-		str[i - 1] != '%' && str[i + 1])
-				qnt++;
-	return (qnt);
-}
-
-void	ft_whatisit(char *str)
-{
-	int i;
-
-	i = 0;
+	while (str[++i])
+	{
+		if (str[i] == 'd' || str[i] == 'i')
+			ft_isdecimal(str, argPointer);
+		else if (str[i] == 's')
+			ft_isstring(str, argPointer);
+		else if (str[i] == 'c')
+			ft_ischar(str, argPointer);
+		else if (str[i] == '%')
+			write(1, "%", 1);
+		else
+			continue;
+		*j += i + 1;
+		break;
+	}
 }
 
 int		ft_printf(char *str, ...)
 {
 	int i;
-	char c;
 	char *tmp;
 	va_list argPointer;
-	int qnt;
 	
-	i = -1;
-	qnt = ft_count_qnt(str);
-	va_start(argPointer, qnt);
-	while (++i < qnt)
+	i = 0;
+	va_start(argPointer, str);
+	while (str[i])
 	{
-		tmp = ft_strchr(str, '%');
-		ft_putstr(str - tmp);
-		str = tmp + 1;
-		ft_whatis(str);
+		if (str[i] != '%')
+			write(1, &str[i++], 1);
+		else
+		{
+			tmp = str + ++i;
+			ft_whatisit(tmp, argPointer, &i);
+//			ft_putnbr(i);
+		}
 	}
-	ft_putstr(tmp);
+//	while (str[i])
+//		write(1, &str[i++], 1);
 	va_end(argPointer);
 	return (i);
 }
 
 int		main(int argc, char **argv)
 {
+	int	p;
 	int i;
 
 	i = 0;
 	while (++i < argc)
 	{
-		printf("printf:    \n");
-//		printf(argv);
-		printf("ft_printf: \n");
-//		ft_printf(argv);
+		write(1, "ft_printf: ", 11);
+		p = ft_printf("%s | %s\n", argv[1], argv[2]);
+		printf("p: %d\nprintf:    ", p);
+		p = printf("%s | %s\n", argv[1], argv[2]);
+		printf("p: %d\n", p);
 	}
 	return (0);
 }
