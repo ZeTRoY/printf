@@ -6,64 +6,58 @@
 /*   By: aroi <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/19 15:18:48 by aroi              #+#    #+#             */
-/*   Updated: 2018/05/27 15:23:50 by aroi             ###   ########.fr       */
+/*   Updated: 2018/06/12 17:53:03 by aroi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdarg.h>
-#include "libft.h"
+#include "printf.h"
 
+#include "libft.h"
 #include <stdio.h>
 
-void	ft_isdecimal(char *str, va_list argPointer);
-void	ft_isstring(char *str, va_list argPointer);
-void	ft_ischar(char *str, va_list argPointer);
-
-void	ft_whatisit(char *str, va_list argPointer, int *j)
+void	ft_what_is_it(t_printf *printf, va_list argPointer)
 {
-	int i;
-
-	i = -1;
-	while (str[++i])
+	while (*printf->str)
 	{
-		if (str[i] == 'd' || str[i] == 'i')
-			ft_isdecimal(str, argPointer);
-		else if (str[i] == 's')
-			ft_isstring(str, argPointer);
-		else if (str[i] == 'c')
-			ft_ischar(str, argPointer);
-		else if (str[i] == '%')
+		if (is_flag(printf->str))
+			ft_flag_activation(printf);
+		if (is_flag_size(printf->str))
+			ft_flag_size_activation(printf);
+		if (is_conversion(printf->str))
+			ft_wahtislove(printf, argPointer);
+		else if (printf->str[i])
+		{
+			printf->num++;
 			write(1, "%", 1);
-		else
-			continue;
-		*j += i + 1;
-		break;
+			printf->i += 2;
+			printf->str += 2;
+		}
 	}
 }
 
 int		ft_printf(char *str, ...)
 {
-	int i;
-	char *tmp;
-	va_list argPointer;
+	t_printf	*printf;
+	va_list		argPointer;
 	
-	i = 0;
+	printf = new_printf();
 	va_start(argPointer, str);
-	while (str[i])
+	while (str[printf->i])
 	{
-		if (str[i] != '%')
-			write(1, &str[i++], 1);
-		else
+		if (str[printf->i] != '%')
 		{
-			tmp = str + ++i;
-			ft_whatisit(tmp, argPointer, &i);
-//			ft_putnbr(i);
+			printf->num++;
+			write(1, &str[printf->i++], 1);
+		}
+		else if (str[printf->i + 1] != '%')
+		{
+			printf->str = str + ++printf->i;
+			ft_what_is_it(printf, argPointer);
 		}
 	}
-//	while (str[i])
-//		write(1, &str[i++], 1);
 	va_end(argPointer);
-	return (i);
+	return (printf->num);
 }
 
 int		main(int argc, char **argv)
@@ -75,10 +69,19 @@ int		main(int argc, char **argv)
 	while (++i < argc)
 	{
 		write(1, "ft_printf: ", 11);
-		p = ft_printf("%s | %s\n", argv[1], argv[2]);
+		p = ft_printf("%c | %i | %s | %% | %o | %x | %X\n", 'a', 10, argv[1], -64, -16, -27678);
 		printf("p: %d\nprintf:    ", p);
-		p = printf("%s | %s\n", argv[1], argv[2]);
+		p = printf("%c | %#i | %s | %% | %o | %x | %X\n", 'a', 10, argv[1], -64, -16, -27678);
 		printf("p: %d\n", p);
+		write(1, "=================================", 33);
+		write(1, "=================================", 33);
+		write(1, "==============\n", 15);
+		write(1, "ft_printf: ", 11);
+//		p = ft_printf("%C | %S\n", 20, argv[1]);
+		printf("p: %d\nprintf:    ", p);
+//		p = printf("%C | %S\n", 20, argv[1]);
+		printf("p: %d\n", p);
+
 	}
 	return (0);
 }
