@@ -6,13 +6,14 @@
 /*   By: aroi <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/12 16:59:58 by aroi              #+#    #+#             */
-/*   Updated: 2018/06/12 17:31:22 by aroi             ###   ########.fr       */
+/*   Updated: 2018/06/13 12:41:22 by aroi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printf.h"
+#include "libft.h"
 
-t_printf	new_printf(void)
+t_printf	*new_printf(void)
 {
 	t_printf *printf;
 
