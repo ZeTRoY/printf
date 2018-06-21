@@ -6,11 +6,11 @@
 /*   By: aroi <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/28 19:25:16 by aroi              #+#    #+#             */
-/*   Updated: 2018/03/28 21:02:04 by aroi             ###   ########.fr       */
+/*   Updated: 2018/06/21 17:25:38 by aroi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "printf.h"
 
 static char	*itoc(int n, int base, int qnt)
 {
@@ -66,8 +66,6 @@ char		*ft_itoa_base(int n, int base)
 
 	if (base == 10)
 		return (ft_itoa(n));
-	if ((base < 2 || base > 16) && n != 0)
-		return ("Enter base from 2 to 16, please.");
 	k = n;
 	qnt = 0;
 	while (k != 0)

@@ -6,11 +6,11 @@
 /*   By: aroi <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/25 09:06:56 by aroi              #+#    #+#             */
-/*   Updated: 2018/06/19 17:17:32 by aroi             ###   ########.fr       */
+/*   Updated: 2018/06/21 17:25:50 by aroi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "printf.h"
 
 static size_t	qnt_counter(unsigned long long n)
 {

@@ -6,13 +6,12 @@
 /*   By: aroi <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/19 15:18:48 by aroi              #+#    #+#             */
-/*   Updated: 2018/06/21 17:06:23 by aroi             ###   ########.fr       */
+/*   Updated: 2018/06/21 17:22:37 by aroi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printf.h"
 
-#include "libft.h"
 #include <stdio.h>
 
 void	ft_what_is_it(t_printf **printf, va_list argPointer)

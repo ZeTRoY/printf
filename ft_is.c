@@ -6,11 +6,10 @@
 /*   By: aroi <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/27 10:00:49 by aroi              #+#    #+#             */
-/*   Updated: 2018/06/21 17:05:46 by aroi             ###   ########.fr       */
+/*   Updated: 2018/06/21 17:23:15 by aroi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
 #include "printf.h"
 
 void	ft_isdecimal(t_printf **printf, va_list argPointer)

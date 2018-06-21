@@ -6,13 +6,15 @@
 /*   By: aroi <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/12 16:14:01 by aroi              #+#    #+#             */
-/*   Updated: 2018/06/19 15:28:32 by aroi             ###   ########.fr       */
+/*   Updated: 2018/06/21 17:39:18 by aroi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PRINTF_H
 # define PRINTF_H
 
+#include <unistd.h>
+#include <stdlib.h>
 #include <stdarg.h>
 
 typedef struct		s_printf
@@ -35,5 +37,17 @@ void				ft_what_is_love(t_printf **printf, va_list argPointer);
 void				ft_iswchar(t_printf *printf, va_list argPointer);	
 void				ft_iswint(t_printf *printf, va_list argPointer);
 void				ft_is_C_or_S(t_printf **printf, va_list argPointer);
+
+int					ft_toupper(int c);
+void				ft_putchar(char c);
+void				ft_putstr(char const *s);
+void				ft_putnbr(int n);
+void				ft_putunbr(unsigned int n);
+char				*ft_itoa(int n);
+char				*ft_itoa_base(int n, int base);
+char				*ft_uitoa(unsigned int n);
+char				*ft_uitoa_base(unsigned int n, int base);
+char				*ft_litoa(unsigned long long n);
+char				*ft_litoa_base(unsigned long long n, int base);
 
 #endif

@@ -6,11 +6,11 @@
 /*   By: aroi <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/28 19:25:16 by aroi              #+#    #+#             */
-/*   Updated: 2018/06/19 17:17:45 by aroi             ###   ########.fr       */
+/*   Updated: 2018/06/21 17:26:06 by aroi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "printf.h"
 
 static char	*itoc(unsigned long long n, int base, int qnt)
 {
