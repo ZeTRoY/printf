@@ -6,7 +6,7 @@
 #    By: aroi <marvin@42.fr>                        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/03/25 12:28:49 by aroi              #+#    #+#              #
-#    Updated: 2018/06/10 13:12:54 by aroi             ###   ########.fr        #
+#    Updated: 2018/06/19 17:35:58 by aroi             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 NAME = libft.a
@@ -28,7 +28,7 @@ SRC =	ft_freearr.c ft_isdigit.c ft_atoi.c ft_bzero.c ft_isalpha.c \
 		ft_strmapi.c ft_strnew.c ft_strnstr.c ft_strrchr.c ft_strsplit.c \
 		ft_strstr.c ft_strsub.c ft_strtrim.c ft_tolower.c ft_toupper.c \
 		ft_strlcpy.c ft_strsplittolist.c ft_itoa_base.c ft_uitoa.c \
-		ft_uitoa_base.c ft_lstaddend.c
+		ft_uitoa_base.c ft_lstaddend.c ft_litoa.c ft_litoa_base.c ft_putunbr.c
 OBJ = 	$(SRC:.c=.o)
 
 all: $(NAME)

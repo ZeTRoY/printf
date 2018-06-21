@@ -6,7 +6,7 @@
 /*   By: aroi <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/12 16:14:01 by aroi              #+#    #+#             */
-/*   Updated: 2018/06/13 15:49:32 by aroi             ###   ########.fr       */
+/*   Updated: 2018/06/19 15:28:32 by aroi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,5 +34,6 @@ void				ft_flag_size_activation(t_printf **printf);
 void				ft_what_is_love(t_printf **printf, va_list argPointer);
 void				ft_iswchar(t_printf *printf, va_list argPointer);	
 void				ft_iswint(t_printf *printf, va_list argPointer);
+void				ft_is_C_or_S(t_printf **printf, va_list argPointer);
 
 #endif

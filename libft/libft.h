@@ -6,7 +6,7 @@
 /*   By: aroi <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/21 15:39:32 by aroi              #+#    #+#             */
-/*   Updated: 2018/06/10 13:13:27 by aroi             ###   ########.fr       */
+/*   Updated: 2018/06/19 17:36:50 by aroi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,10 @@ t_list				*ft_strsplittolist(char const *s, char c);
 char				*ft_itoa_base(int n, int base);
 void				ft_freearr(void **arr);
 void				ft_lstaddend(t_list **alst, t_list *new);
+char				*ft_litoa(unsigned long long int n);
+char				*ft_litoa_base(unsigned long long int n, int base);
 char				*ft_uitoa(unsigned int n);
 char				*ft_uitoa_base(unsigned int n, int base);
+void				ft_putunbr(unsigned int n);
 
 #endif
