@@ -1,22 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putnbr.c                                        :+:      :+:    :+:   */
+/*   ft_count_letters.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aroi <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/03/25 10:13:00 by aroi              #+#    #+#             */
-/*   Updated: 2018/06/24 18:53:19 by aroi             ###   ########.fr       */
+/*   Created: 2018/06/23 19:46:12 by aroi              #+#    #+#             */
+/*   Updated: 2018/06/23 19:46:36 by aroi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "printf.h"
-
-void		ft_putnbr(intmax_t n)
+int		ft_count_letters(char *str)
 {
-	char *str;
+	int qnt;
 
-	str = ft_itoa(n);
-	ft_putstr(str);
-	ft_strdel(&str);
+	qnt = 0;
+	if (!str)
+		return (qnt);
+	while (*str++)
+		qnt++;
+	return (qnt);
 }

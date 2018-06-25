@@ -1,22 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putnbr.c                                        :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aroi <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/03/25 10:13:00 by aroi              #+#    #+#             */
-/*   Updated: 2018/06/24 18:53:19 by aroi             ###   ########.fr       */
+/*   Created: 2018/03/22 16:31:20 by aroi              #+#    #+#             */
+/*   Updated: 2018/06/24 16:08:37 by aroi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printf.h"
 
-void		ft_putnbr(intmax_t n)
+char	*ft_strdup(const char *s1)
 {
-	char *str;
+	size_t		i;
+	char		*str;
 
-	str = ft_itoa(n);
-	ft_putstr(str);
-	ft_strdel(&str);
+	i = 0;
+	if (!(str = (char *)malloc(sizeof(char) * (ft_strlen(s1) + 1))))
+		return (0);
+	while (i < ft_strlen(s1))
+	{
+		str[i] = s1[i];
+		i++;
+	}
+	str[i] = '\0';
+	return (str);
 }

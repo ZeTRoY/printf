@@ -6,139 +6,109 @@
 /*   By: aroi <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/27 10:00:49 by aroi              #+#    #+#             */
-/*   Updated: 2018/06/21 17:23:15 by aroi             ###   ########.fr       */
+/*   Updated: 2018/06/24 18:39:41 by aroi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printf.h"
 
-void	ft_isdecimal(t_printf **printf, va_list argPointer)
+static void	ft_isdecimal(t_printf **printf, va_list argPointer)
 {
-	long int	l;
-	int			i;
+	intmax_t		i;
 	
-	if (*((*printf)->str) != 'D')
-	{
+	if (*((*printf)->str) == 'd' || *((*printf)->str) == 'i')
 		i = va_arg(argPointer, int);
-		ft_putnbr(i);
-		if (i < 0)
-			(*printf)->num++;
-		while (i)
-		{
-			i /= 10;
-			(*printf)->num++;
-		}
-	}
+	else if (*((*printf)->str) == 'D')
+		i = va_arg(argPointer, unsigned long);
+	else if (*((*printf)->str) == 'u')
+		i = va_arg(argPointer, unsigned int);
 	else
+		i = va_arg(argPointer, unsigned long);
+	i = di_cast(printf, i);
+	ft_diu_precision_n_width(printf, i);
+	if (i < 0 || ((*printf)->plus &&
+			*((*printf)->str) != 'u' && *((*printf)->str) != 'U'))
+		(*printf)->num++;
+	while (i)
 	{
-		l = va_arg(argPointer, unsigned long);
-		ft_putunbr(l);
-		while (l)
-		{
-			l /= 10;
-			(*printf)->num++;
-		}
+		i /= 10;
+		(*printf)->num++;
 	}
 	(*printf)->str += 1;
 	(*printf)->i += 1;
 }
 
-void	ft_is_unsigned(t_printf **printf, va_list argPointer)
-{
-	unsigned int	u;
-	unsigned long	ul;
-	if (*((*printf)->str) != 'U')
-	{
-		u = va_arg(argPointer, unsigned int);
-		ft_putunbr(u);
-		while (u)
-		{
-			u /= 10;
-			(*printf)->num++;
-		}
-	}
-	else
-	{
-		ul = va_arg(argPointer, unsigned long);
-		ft_putunbr(ul);
-		while (ul)
-		{
-			ul /= 10;
-			(*printf)->num++;
-		}
-}
-	(*printf)->str++;
-	(*printf)->i++;
-}
-
-void	ft_is_s_or_c(t_printf **printf, va_list argPointer)
+static void	ft_is_s_or_c(t_printf **printf, va_list argPointer)
 {
 	char *s;
-	int i;
-	unsigned char c;
 
-	i = 0;
 	if (*((*printf)->str) == 's')
-	{
-		s = va_arg(argPointer, char *);
-		while (s[i])
-		{
-			write(1, &s[i++], 1);
-			(*printf)->num++;
-		}
-	}
+		s = ft_strdup(va_arg(argPointer, char *));
 	else if (*((*printf)->str) == 'c')
 	{
-		c = (unsigned char)va_arg(argPointer, int);
-		write(1, &c, 1);
-		(*printf)->num++;
+		if (!(s = (char *)malloc(2)))
+			return ;
+		s[0] = (unsigned char)va_arg(argPointer, int);
+		s[1] = '\0';
 	}
+	ft_str_precision_n_width(printf, s);
 	(*printf)->str += 1;
 	(*printf)->i += 1;
+//	ft_strdel(&s);
 }
 
-void	ft_base(t_printf **printf, va_list argPointer)
+static void	zerox(t_printf **printf, va_list argPointer)
 {
-	size_t i;
-	char ch;
-	char *string;
+	char	*string;
+	size_t	i;
+	char	ch;
+	char	*tmp;
 
-	i = -1;
-	if ((unsigned char)*((*printf)->str) == 'o')
-		string = ft_uitoa_base(va_arg(argPointer, size_t), 8);
-	else if ((unsigned char)*((*printf)->str) != 'p')
-		string = ft_uitoa_base(va_arg(argPointer, unsigned int), 16);
+	i = 1;
+	if (*((*printf)->str) == 'p')
+		string = ft_strjoin("0x", ft_itoa_base(va_arg(argPointer,
+						unsigned long long), 16));
 	else
+		string = ft_strjoin("0x", ft_itoa_base(va_arg(argPointer,
+						unsigned long), 16));
+	ft_p_width(printf, string);
+	ft_p_precision(printf, string + 2);
+//	ft_strdel(&string);
+}
+
+static void	ft_base_hexa(t_printf **printf, va_list argPointer)
+{
+	size_t	i;
+	char	*string;
+
+	i = 0;
+	if ((unsigned char)*((*printf)->str) != 'p' && !(*printf)->sharp)
 	{
-		string = ft_litoa_base(va_arg(argPointer, unsigned long long), 16);
-		write(1, "0x", 2);
-		(*printf)->num += 2;
+		string = ft_itoa_base(va_arg(argPointer, unsigned long), 16);
+		while (*((*printf)->str) == 'X' && string[i++])
+			string[i - 1] = ft_toupper(string[i - 1]);
+		ft_xo_precision_n_width(printf, string);
 	}
-	while (string[++i])
-	{
-		(*printf)->num++;
-		ch = (char)ft_toupper(string[i]);
-		if (*((*printf)->str) == 'X')
-			write(1, &ch, 1);
-		else
-			write(1, &string[i], 1);
-	}
+	else
+		zerox(printf, argPointer);
 	(*printf)->str += 1;
 	(*printf)->i += 1;
+//	ft_strdel(&string);
 }
 
 void	ft_what_is_love(t_printf **printf, va_list argPointer)
 {
-	if (*((*printf)->str) == 'd' || *((*printf)->str) == 'i'
-			|| *((*printf)->str) == 'D')
+	 if (*((*printf)->str) == 'd' || *((*printf)->str) == 'i' ||
+			*((*printf)->str) == 'D' || *((*printf)->str) == 'u' ||
+				*((*printf)->str) == 'U')
 		ft_isdecimal(printf, argPointer);
 	else if (*((*printf)->str) == 's' || *((*printf)->str) == 'c')
 		ft_is_s_or_c(printf, argPointer);
-	else if (*((*printf)->str) == 'u' || *((*printf)->str) == 'U')
-		ft_is_unsigned(printf, argPointer);
 	else if (*((*printf)->str) == 'C' || *((*printf)->str) == 'S')
-		ft_is_C_or_S(printf, argPointer);
-	else if (*((*printf)->str) == 'o' || *((*printf)->str) == 'x'
+		ft_is_unicode(printf, argPointer);
+	else if (*((*printf)->str) == 'x'
 			|| *((*printf)->str) == 'X' || *((*printf)->str) == 'p')
-		ft_base(printf, argPointer);
+		ft_base_hexa(printf, argPointer);
+	else if (*((*printf)->str) == 'o' || *((*printf)->str) == 'O')
+		ft_base_octo(printf, argPointer);
 }

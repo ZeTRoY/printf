@@ -6,74 +6,48 @@
 /*   By: aroi <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/28 19:25:16 by aroi              #+#    #+#             */
-/*   Updated: 2018/06/21 17:25:38 by aroi             ###   ########.fr       */
+/*   Updated: 2018/06/24 12:44:03 by aroi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printf.h"
 
-static char	*itoc(int n, int base, int qnt)
+static int	ft_count_digits_base(intmax_t n, int base)
 {
-	char *str;
+	int qnt;
 
+	qnt = 0;
 	if (n == 0)
+		qnt++;
+	while (n > 0)
 	{
-		str = (char *)malloc(sizeof(char) * 2);
-		str[0] = '0';
-		str[1] = '\0';
-		return (str);
+		n /= base;
+		qnt++;
 	}
-	str = (char *)malloc(sizeof(char) * (qnt + 1));
-	if (str == 0)
-		return (0);
-	str[qnt] = '\0';
-	if (n < 0)
-		n *= -1;
-	while (--qnt >= 0)
+	return (qnt);
+}
+
+char		*ft_itoa_base(intmax_t n, int base)
+{
+	char	*str;
+	int		i;
+
+	str = 0;
+	if (base == 10)
+		return (ft_itoa(n));
+	i = ft_count_digits_base(n, base) + 1;
+	if (!(str = (char *)malloc(i)))
+		return (str);
+	str[--i] = '\0';
+	if (n == 0)
+		str[0] = '0';
+	while (i-- > 0)
 	{
-		if (n % base < 10)
-			str[qnt] = n % base + 48;
+		if (n % base <= 9)
+			str[i] = n % base + '0';
 		else
-			str[qnt] = n % base + 55;
+			str[i] = n % base + 87;
 		n /= base;
 	}
 	return (str);
-}
-
-static char	*min_int(int n, int base, int qnt)
-{
-	char *minint;
-
-	minint = (char *)malloc(sizeof(char) * (qnt + 1));
-	if (minint == 0)
-		return (0);
-	minint[qnt] = '\0';
-	while (--qnt >= 0)
-	{
-		if (n % base > -10)
-			minint[qnt] = -(n % base) + 48;
-		else
-			minint[qnt] = -(n % base) + 55;
-		n /= base;
-	}
-	return (minint);
-}
-
-char		*ft_itoa_base(int n, int base)
-{
-	int k;
-	int qnt;
-
-	if (base == 10)
-		return (ft_itoa(n));
-	k = n;
-	qnt = 0;
-	while (k != 0)
-	{
-		qnt++;
-		k /= base;
-	}
-	if (n == -2147483648)
-		return (min_int(n, base, qnt));
-	return (itoc(n, base, qnt));
 }

@@ -6,7 +6,7 @@
 /*   By: aroi <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/12 16:59:58 by aroi              #+#    #+#             */
-/*   Updated: 2018/06/21 17:28:28 by aroi             ###   ########.fr       */
+/*   Updated: 2018/06/24 18:47:36 by aroi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,29 @@ t_printf	*new_printf(void)
 	printf = (t_printf *)malloc(sizeof(t_printf));
 	if (!printf)
 		return (0);
-	printf->flag = 0;
-	printf->size_flag = 0;
-	printf->conv = 0;
+	printf->sharp = 0;
+	printf->zero = 0;
+	printf->minus = 0;
+	printf->plus = 0;
+	printf->space = 0;
+	printf->apostrophe = 0;
+	printf->cast = 0;
 	printf->num = 0;
 	printf->i = 0;
+	printf->precision = 0;
+	printf->width = 0;
 	return (printf);
+}
+
+void	ft_printf_update(t_printf **printf)
+{
+	(*printf)->sharp = 0;
+	(*printf)->zero = 0;
+	(*printf)->minus = 0;
+	(*printf)->plus = 0;
+	(*printf)->space = 0;
+	(*printf)->apostrophe = 0;
+	(*printf)->cast = 0;
+	(*printf)->width = 0;
+	(*printf)->precision = 0;
 }

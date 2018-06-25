@@ -1,22 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putnbr.c                                        :+:      :+:    :+:   */
+/*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aroi <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/03/25 10:13:00 by aroi              #+#    #+#             */
-/*   Updated: 2018/06/24 18:53:19 by aroi             ###   ########.fr       */
+/*   Created: 2018/03/21 15:52:24 by aroi              #+#    #+#             */
+/*   Updated: 2018/06/24 16:09:14 by aroi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printf.h"
 
-void		ft_putnbr(intmax_t n)
+size_t	ft_strlen(const char *s)
 {
-	char *str;
+	int i;
 
-	str = ft_itoa(n);
-	ft_putstr(str);
-	ft_strdel(&str);
+	i = 0;
+	while (s[i])
+		i++;
+	return (i);
 }

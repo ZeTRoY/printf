@@ -1,54 +1,52 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_litoa.c                                         :+:      :+:    :+:   */
+/*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aroi <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/03/25 09:06:56 by aroi              #+#    #+#             */
-/*   Updated: 2018/06/21 17:25:50 by aroi             ###   ########.fr       */
+/*   Created: 2018/03/24 19:48:32 by aroi              #+#    #+#             */
+/*   Updated: 2018/06/22 19:39:48 by aroi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printf.h"
 
-static size_t	qnt_counter(unsigned long long n)
+static int	len_of_str(char const *s)
 {
-	size_t qnt;
+	int i;
 
-	qnt = 0;
-	if (n == 0)
-		qnt = 1;
-	else
-		while (n > 0)
-		{
-			n /= 10;
-			qnt++;
-		}
-	return (qnt);
+	i = 0;
+	if (!s)
+		return (0);
+	while (s[i])
+		i++;
+	return (i);
 }
 
-char			*ft_litoa(unsigned long long n)
+char		*ft_strjoin(char const *s1, char const *s2)
 {
 	int		i;
 	int		j;
-	int		qnt;
-	int		nbr[qnt_counter(n)];
 	char	*str;
 
-	qnt = qnt_counter(n);
-	str = (char *)malloc(sizeof(char) * (qnt + 1));
-	if (!str)
-		return (0);
 	i = 0;
 	j = 0;
-	while (n > 0)
-	{
-		nbr[j++] = n % 10;
-		n /= 10;
-	}
-	while (j >= 0)
-		str[i++] = (char)nbr[--j] + 48;
-	str[qnt] = '\0';
-	return(str);
+	str = (char *)malloc(sizeof(char) * (len_of_str(s1) + len_of_str(s2) + 1));
+	if (!str)
+		return (0);
+	if (s1)
+		while (s1[i])
+		{
+			str[i] = s1[i];
+			i++;
+		}
+	if (s2)
+		while (s2[j])
+		{
+			str[i + j] = s2[j];
+			j++;
+		}
+	str[i + j] = '\0';
+	return (str);
 }
