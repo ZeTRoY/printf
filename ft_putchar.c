@@ -6,7 +6,7 @@
 /*   By: aroi <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/25 10:00:45 by aroi              #+#    #+#             */
-/*   Updated: 2018/07/05 11:59:35 by aroi             ###   ########.fr       */
+/*   Updated: 2018/07/05 16:59:23 by aroi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void		ft_putchar(wchar_t c)
 {
 	unsigned char	ch[4];
 
-	if (c <= _7_BITS)
+	if (c <= _7_BITS || MB_CUR_MAX != 4)
 		ch[0] = c;
 	else if (c <= _11_BITS)
 	{
