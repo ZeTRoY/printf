@@ -3,13 +3,13 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: aroi <marvin@42.fr>                        +#+  +:+       +#+         #
+#    By: aroi <aroi@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/03/25 12:28:49 by aroi              #+#    #+#              #
-#    Updated: 2018/06/19 17:35:58 by aroi             ###   ########.fr        #
+#    Updated: 2018/07/03 15:29:08 by aroi             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
-NAME = libft.a
+
 
 CC = gcc
 CFLAGS = -Wall -Werror -Wextra -I.
@@ -41,6 +41,6 @@ clean:
 	@/bin/rm -f $(OBJ)
 
 fclean: clean
-	@/bin/rm -f libft.a
+	@/bin/rm -f $(NAME)
 
 re: fclean all

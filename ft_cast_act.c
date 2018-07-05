@@ -6,7 +6,7 @@
 /*   By: aroi <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/12 16:40:36 by aroi              #+#    #+#             */
-/*   Updated: 2018/06/24 18:35:49 by aroi             ###   ########.fr       */
+/*   Updated: 2018/07/05 10:56:37 by aroi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,26 +31,24 @@ void			ft_flag_activation(t_printf **printf)
 {
 	while (*((*printf)->str) == '#' || *((*printf)->str) == '0' ||
 			*((*printf)->str) == '-' || *((*printf)->str) == '+' ||
-			*((*printf)->str) == ' ' || *((*printf)->str) == '\'')
+			*((*printf)->str) == ' ')
 	{
 		if ((*printf)->str[0] == '#')
 			(*printf)->sharp = 1;
 		else if ((*printf)->str[0] == '0' && !(*printf)->minus)
 			(*printf)->zero = 1;
-		else if ((*printf)->str[0] == '-' && (*printf)->zero == 1)
+		else if ((*printf)->str[0] == '-')
 		{
 			(*printf)->zero = 0;
 			(*printf)->minus = 1;
 		}
-		else if ((*printf)->str[0] == '+' && (*printf)->space == 1)
+		else if ((*printf)->str[0] == '+')
 		{
 			(*printf)->space = 0;
 			(*printf)->plus = 1;
 		}
 		else if ((*printf)->str[0] == ' ' && !(*printf)->plus)
 			(*printf)->space = 1;
-		else if ((*printf)->str[0] == '\'')
-			(*printf)->apostrophe = 1;
 		(*printf)->str++;
 		(*printf)->i++;
 	}
@@ -101,7 +99,8 @@ void			ft_cast_activation(t_printf **printf)
 			(*printf)->cast = LL;
 		else if ((*printf)->str[0] == 'l' && L >= (*printf)->cast)
 			(*printf)->cast = L;
-		else if ((*printf)->str[0] == 'h' && H >= (*printf)->cast)
+		else if ((*printf)->str[0] == 'h' && (*printf)->str[1] != 'h' &&
+				H >= (*printf)->cast)
 			(*printf)->cast = H;
 		else
 		{

@@ -6,7 +6,7 @@
 /*   By: aroi <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/12 16:59:58 by aroi              #+#    #+#             */
-/*   Updated: 2018/06/24 18:47:36 by aroi             ###   ########.fr       */
+/*   Updated: 2018/07/05 13:20:55 by aroi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,11 @@ t_printf	*new_printf(void)
 	printf->minus = 0;
 	printf->plus = 0;
 	printf->space = 0;
-	printf->apostrophe = 0;
 	printf->cast = 0;
+	printf->conv = 0;
 	printf->num = 0;
 	printf->i = 0;
-	printf->precision = 0;
+	printf->precision = -1;
 	printf->width = 0;
 	return (printf);
 }
@@ -40,8 +40,8 @@ void	ft_printf_update(t_printf **printf)
 	(*printf)->minus = 0;
 	(*printf)->plus = 0;
 	(*printf)->space = 0;
-	(*printf)->apostrophe = 0;
 	(*printf)->cast = 0;
 	(*printf)->width = 0;
-	(*printf)->precision = 0;
+	(*printf)->conv = 0;
+	(*printf)->precision = -1;
 }

@@ -6,13 +6,28 @@
 /*   By: aroi <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/23 18:26:55 by aroi              #+#    #+#             */
-/*   Updated: 2018/06/23 20:36:59 by aroi             ###   ########.fr       */
+/*   Updated: 2018/07/05 13:00:30 by aroi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printf.h"
 
-int		ft_count_digits(intmax_t n)
+int		ft_count_udigits_base(uintmax_t n, int base)
+{
+	int qnt;
+
+	qnt = 0;
+	if (n == 0)
+		qnt++;
+	while (n > 0)
+	{
+		n /= base;
+		qnt++;
+	}
+	return (qnt);
+}
+
+int		ft_count_digits_base(intmax_t n, int base)
 {
 	int	qnt;
 
@@ -21,7 +36,7 @@ int		ft_count_digits(intmax_t n)
 		return (1);
 	while (n)
 	{
-		n /= 10;
+		n /= base;
 		qnt++;
 	}
 	return (qnt);

@@ -6,7 +6,7 @@
 /*   By: aroi <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/12 16:14:01 by aroi              #+#    #+#             */
-/*   Updated: 2018/06/24 18:55:24 by aroi             ###   ########.fr       */
+/*   Updated: 2018/07/05 13:20:29 by aroi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,8 @@ typedef struct		s_printf
 	char			minus;
 	char			plus;
 	char			space;
-	char			apostrophe;
 	char			cast;
+	char			conv;
 	int				width;
 	int				precision;
 	int				num;
@@ -69,35 +69,33 @@ void				ft_width_activation(t_printf **printf);
 void				ft_precision_activation(t_printf **printf);
 void				ft_cast_activation(t_printf **printf);
 void				ft_what_is_love(t_printf **printf, va_list argPointer);
-void				ft_iswchar(t_printf *printf, va_list argPointer);	
-void				ft_iswint(t_printf *printf, va_list argPointer);
-void				ft_is_unicode(t_printf **printf, va_list argPointer);
+void				ft_is_decimal(t_printf **printf, va_list argPointer);
+void				ft_is_unsigned(t_printf **printf, va_list argPointer);
+void				ft_is_char(t_printf **printf, va_list argPointer);
+void				ft_is_string(t_printf **printf, va_list argPointer);
 void				ft_base_octo(t_printf **printf, va_list argPointer);
-void				ft_print_width(t_printf **print, intmax_t qnt);
-void				ft_diu_precision_n_width(t_printf **printf, intmax_t i);
-void				ft_xo_precision_n_width(t_printf **printf, char *str);
+void				ft_base_hexa(t_printf **printf, va_list argPointer);
+void				ft_print_width(t_printf **print, int qnt);
 void				ft_char_precision_n_width(t_printf **printf, char c);
-void				ft_str_precision_n_width(t_printf **printf, char *str);
-void				ft_p_precision(t_printf **printf, char *str);
-void				ft_p_width(t_printf **printf, char *str);
-void				ft_C_precision_n_width(t_printf **printf, wchar_t c,
-				int size);
-void				ft_S_precision_n_width(t_printf **printf, wchar_t *str,
-				int size);
+void				ft_xo_precision_n_width(t_printf **printf, char *str);
+char				size_of(wchar_t c);
+int					size_of_str(char *str);
+int					size_of_uni_str(wchar_t *str);
 
-int					ft_count_digits(intmax_t i);
+int					ft_count_digits_base(intmax_t i, int base);
+int					ft_count_udigits_base(uintmax_t n, int base);
 int					ft_count_letters(char *str);
-
-intmax_t			di_cast(t_printf **printf, intmax_t d);
 
 int					ft_isdigit(int c);
 int					ft_toupper(int c);
-void				ft_putchar(char c);
+void				ft_putchar(wchar_t c);
 void				ft_putstr(char const *s);
 void				ft_putnbr(intmax_t n);
 int					ft_atoi(const char *str);
 char				*ft_itoa(intmax_t n);
+char				*ft_uitoa(uintmax_t n);
 char				*ft_itoa_base(intmax_t n, int base);
+char				*ft_uitoa_base(uintmax_t n, int base);
 char				*ft_strdup(const char *s1);
 size_t				ft_strlen(const char *str);
 void				ft_strdel(char **str);

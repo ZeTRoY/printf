@@ -1,34 +1,48 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cast.c                                             :+:      :+:    :+:   */
+/*   qnt_of_bits.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aroi <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/06/24 12:44:34 by aroi              #+#    #+#             */
-/*   Updated: 2018/06/24 14:50:35 by aroi             ###   ########.fr       */
+/*   Created: 2018/07/04 13:16:21 by aroi              #+#    #+#             */
+/*   Updated: 2018/07/05 11:59:33 by aroi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printf.h"
 
-intmax_t	di_cast(t_printf **printf, intmax_t d)
+int			size_of_uni_str(wchar_t *str)
 {
-	intmax_t	max;
+	int		size;
+	int		i;
 
-	if ((*printf)->cast == H)
-		max = (short)d;
-	else if ((*printf)->cast == HH)
-		max = (char)d;
-	else if ((*printf)->cast == L)
-		max = (long)d;
-	else if ((*printf)->cast == LL)
-		max = (long long)d;
-	else if ((*printf)->cast == J)
-		max = (intmax_t)d;
-	else if ((*printf)->cast == Z)
-		max = (size_t)d;
-	else
-		max = d;
-	return (max);
+	i = 0;
+	size = 0;
+	while (str[i])
+		size += size_of(str[i++]);
+	return (size);
+}
+
+int			size_of_str(char *str)
+{
+	int		size;
+	int		i;
+
+	i = 0;
+	size = 0;
+	while (str[i])
+		size += size_of(str[i++]);
+	return (size);
+}
+
+char	size_of(wchar_t c)
+{
+	if (c <= _7_BITS)
+		return (1);
+	if (c <= _11_BITS)
+		return (2);
+	if (c <= _16_BITS)
+		return (3);
+	return (4);
 }
