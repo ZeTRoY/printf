@@ -6,7 +6,7 @@
 /*   By: aroi <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/24 19:08:50 by aroi              #+#    #+#             */
-/*   Updated: 2018/07/05 16:38:45 by aroi             ###   ########.fr       */
+/*   Updated: 2018/07/06 22:12:28 by aroi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,13 +142,23 @@ int		main(int argc, char **argv)
 		// printf("p: %d\n", p);
 
 		// write(1, "ft_printf: ", 11);
-		// p = ft_printf("|%llu|\n",  18446744073709551614);
+		// p = ft_printf("|%zhd|\n", 4294967296);
 		// printf("p: %d\nprintf:    ", p);
-		// p = printf("|%llu|\n", 18446744073709551614);
+		// p = printf("|%zhd|\n", 4294967296);
 		// printf("p: %d\n", p);
 
-	ft_printf("%.10S\n", L"ÊM-M-^QÊM-^XØ‰∏M-ÂM-^O™ÁM-^L´„M-M-^B");
-	printf("%.10S\n", L"ÊM-M-^QÊM-^XØ‰∏M-ÂM-^O™ÁM-^L´„M-M-^B");
+	// write(1, "ft_printf: ", 11);
+	// p = ft_printf("%4.3S", L"Jambon");
+	// printf("p: %d\nprintf:    ", p);
+	// p = printf("%4.3S", L"Jambon");
+	// printf("p: %d\n", p);
+
+// 		ft_printf("{xuesosredAnton}LOL{eoc} {grey}KEK{eoc} {blue}drug{eoc} {green}ty{eoc} {lightblue}pidor{eoc} \
+// {lightgreen}ili{eoc} {yellow}xuylo?{eoc} {purple}A?{eoc} {pink}A?{eoc} {lightblue}A?{eoc} \
+// {black}|%5.4d|{eoc}\n", 24);
+
+	ft_printf("{%10.*d}\n", -5, 42);
+	printf("{%10.*d}\n", -5, 42);
 
 	// ft_printf("%");
 	// printf("%");

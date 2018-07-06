@@ -6,24 +6,28 @@
 /*   By: aroi <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/19 15:18:48 by aroi              #+#    #+#             */
-/*   Updated: 2018/07/05 16:45:03 by aroi             ###   ########.fr       */
+/*   Updated: 2018/07/06 21:51:43 by aroi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printf.h"
 
-static void	ft_what_is_it(t_printf **print, va_list argPointer)
+static void		ft_what_is_it(t_printf **print, va_list apointer)
 {
-	if (is_flag((*print)->str))
-		ft_flag_activation(print);
-	if (is_width((*print)->str))
-		ft_width_activation(print);
-	if (is_precision((*print)->str))
-		ft_precision_activation(print);
-	if (is_cast((*print)->str))
-		ft_cast_activation(print);
+	while (is_flag((*print)->str) || is_width((*print)->str) ||
+		is_precision((*print)->str) || is_cast((*print)->str))
+	{
+		if (is_flag((*print)->str))
+			ft_flag_activation(print);
+		if (is_width((*print)->str))
+			ft_width_activation(print, apointer);
+		if (is_precision((*print)->str))
+			ft_precision_activation(print, apointer);
+		if (is_cast((*print)->str))
+			ft_cast_activation(print);
+	}
 	if (is_conversion((*print)->str))
-		ft_what_is_love(print, argPointer);
+		ft_what_is_love(print, apointer);
 	if (!(*print)->conv && (*print)->str[0])
 	{
 		ft_char_precision_n_width(print, *((*print)->str));
@@ -32,15 +36,18 @@ static void	ft_what_is_it(t_printf **print, va_list argPointer)
 	}
 }
 
-int		ft_printf(char *str, ...)
+int				ft_printf(char *str, ...)
 {
 	t_printf	*printf;
-	va_list		argPointer;
+	va_list		apointer;
 
 	printf = new_printf();
-	va_start(argPointer, str);
+	va_start(apointer, str);
 	while (str[printf->i])
 	{
+		printf->str = str + printf->i;
+		if (str[printf->i] == '{')
+			ft_is_color(&printf);
 		if (str[printf->i] != '%')
 		{
 			printf->num++;
@@ -50,9 +57,10 @@ int		ft_printf(char *str, ...)
 		{
 			ft_printf_update(&printf);
 			printf->str = str + ++printf->i;
-			ft_what_is_it(&printf, argPointer);
+			ft_what_is_it(&printf, apointer);
 		}
 	}
-	va_end(argPointer);
+	va_end(apointer);
+	ft_del_printf(&printf);
 	return (printf->num);
 }

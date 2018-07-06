@@ -6,7 +6,7 @@
 /*   By: aroi <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/04 10:54:14 by aroi              #+#    #+#             */
-/*   Updated: 2018/07/05 15:58:21 by aroi             ###   ########.fr       */
+/*   Updated: 2018/07/05 17:15:14 by aroi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static void			ft_print_width_c(t_printf **printf, char size)
 	}
 }
 
-static void				ft_wchar_precision_n_width(t_printf **printf, wchar_t c)
+static void			ft_wchar_precision_n_width(t_printf **printf, wchar_t c)
 {
 	int		precision;
 	int		size;
@@ -41,11 +41,9 @@ static void				ft_wchar_precision_n_width(t_printf **printf, wchar_t c)
 	size2 = size;
 	if (!(*printf)->minus)
 		ft_print_width_c(printf, size);
-	while ((*printf)->zero && precision-- - size > 0)
-	{
-		(*printf)->num++;
+	while ((*printf)->zero && precision-- - size > 0 &&
+		++(*printf)->num)
 		write(1, "0", 1);
-	}
 	while (size-- > 0)
 		(*printf)->num++;
 	ft_putchar(c);
@@ -71,11 +69,9 @@ void				ft_char_precision_n_width(t_printf **printf, char c)
 	size2 = size;
 	if (!(*printf)->minus)
 		ft_print_width_c(printf, size);
-	while ((*printf)->zero && precision-- - size > 0)
-	{
-		(*printf)->num++;
+	while ((*printf)->zero && precision-- - size > 0 &&
+		++(*printf)->num)
 		write(1, "0", 1);
-	}
 	while (size-- > 0)
 		(*printf)->num++;
 	ft_putchar(c);
@@ -83,7 +79,7 @@ void				ft_char_precision_n_width(t_printf **printf, char c)
 		ft_print_width_c(printf, size2);
 }
 
-void			ft_is_char(t_printf **printf, va_list argPointer)
+void				ft_is_char(t_printf **printf, va_list apointer)
 {
 	char	c;
 	wchar_t	wc;
@@ -91,16 +87,15 @@ void			ft_is_char(t_printf **printf, va_list argPointer)
 	if (*((*printf)->str) == 'c' && (*printf)->cast != L)
 	{
 		(*printf)->conv = 'c';
-		c = (unsigned char)va_arg(argPointer, int);
+		c = (unsigned char)va_arg(apointer, int);
 		ft_char_precision_n_width(printf, c);
 	}
 	else
 	{
-	(*printf)->conv = 'C';
-		wc = (wchar_t)va_arg(argPointer, wint_t);
+		(*printf)->conv = 'C';
+		wc = (wchar_t)va_arg(apointer, wint_t);
 		ft_wchar_precision_n_width(printf, wc);
 	}
 	(*printf)->str += 1;
 	(*printf)->i += 1;
-//	ft_strdel(&s);
 }

@@ -6,7 +6,7 @@
 /*   By: aroi <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/12 16:59:58 by aroi              #+#    #+#             */
-/*   Updated: 2018/07/05 13:20:55 by aroi             ###   ########.fr       */
+/*   Updated: 2018/07/06 21:44:50 by aroi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ t_printf	*new_printf(void)
 	return (printf);
 }
 
-void	ft_printf_update(t_printf **printf)
+void		ft_printf_update(t_printf **printf)
 {
 	(*printf)->sharp = 0;
 	(*printf)->zero = 0;
@@ -44,4 +44,11 @@ void	ft_printf_update(t_printf **printf)
 	(*printf)->width = 0;
 	(*printf)->conv = 0;
 	(*printf)->precision = -1;
+}
+
+void		ft_del_printf(t_printf **printf)
+{
+	if (!*printf)
+		return ;
+	free(*printf);
 }

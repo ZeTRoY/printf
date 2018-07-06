@@ -6,7 +6,7 @@
 /*   By: aroi <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/21 20:40:19 by aroi              #+#    #+#             */
-/*   Updated: 2018/07/05 16:46:14 by aroi             ###   ########.fr       */
+/*   Updated: 2018/07/06 15:27:29 by aroi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ static void			ft_print_width_o(t_printf **printf, int qnt)
 	}
 }
 
-static void			ft_o_precision_n_width(t_printf **printf, char *str, uintmax_t z)
+static void			ft_o_precision_n_width(t_printf **printf, char *str,
+						uintmax_t z)
 {
 	int		precision;
 	int		qnt;
@@ -44,26 +45,19 @@ static void			ft_o_precision_n_width(t_printf **printf, char *str, uintmax_t z)
 	precision = (*printf)->precision;
 	if (!(*printf)->minus)
 		ft_print_width_o(printf, qnt);
-	while (precision-- - qnt > 0)
-	{
+	while (precision-- - qnt > 0 && ++(*printf)->num)
 		write(1, "0", 1);
-		(*printf)->num++;
-	}
-	while (qnt-- > 0 && *str)
-	{
-		(*printf)->num++;
-		write(1, str, 1);
-		str++;
-	}
+	while (qnt-- > 0 && *str && ++(*printf)->num)
+		write(1, str++, 1);
 	if ((*printf)->minus)
 		ft_print_width_o(printf, qnt2);
 }
 
-static uintmax_t	o_cast(t_printf **printf, va_list argPointer)
+static uintmax_t	o_cast(t_printf **printf, va_list apointer)
 {
 	uintmax_t	i;
 
-	i = va_arg(argPointer, uintmax_t);
+	i = va_arg(apointer, uintmax_t);
 	if ((*printf)->cast == LL)
 		i = (unsigned long long)i;
 	else if ((*printf)->cast == Z)
@@ -82,7 +76,7 @@ static uintmax_t	o_cast(t_printf **printf, va_list argPointer)
 	return (i);
 }
 
-void				ft_base_octo(t_printf **printf, va_list argPointer)
+void				ft_base_octo(t_printf **printf, va_list apointer)
 {
 	size_t		i;
 	uintmax_t	z;
@@ -94,7 +88,7 @@ void				ft_base_octo(t_printf **printf, va_list argPointer)
 		(*printf)->conv = 'o';
 	else
 		(*printf)->conv = 'O';
-	z = o_cast(printf, argPointer);
+	z = o_cast(printf, apointer);
 	str = ft_uitoa_base(z, 8);
 	if ((*printf)->sharp)
 	{
@@ -103,6 +97,7 @@ void				ft_base_octo(t_printf **printf, va_list argPointer)
 		str = tmp;
 	}
 	ft_o_precision_n_width(printf, str, z);
+	ft_strdel(&str);
 	(*printf)->str++;
 	(*printf)->i++;
 }

@@ -6,7 +6,7 @@
 /*   By: aroi <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/12 16:14:01 by aroi              #+#    #+#             */
-/*   Updated: 2018/07/05 13:20:29 by aroi             ###   ########.fr       */
+/*   Updated: 2018/07/06 21:52:05 by aroi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,25 +59,30 @@ int					ft_printf(char *str, ...);
 
 t_printf			*new_printf(void);
 void				ft_printf_update(t_printf **printf);
+void				ft_del_printf(t_printf **printf);
+
 int					is_flag(char *str);
 int					is_width(char *str);
 int					is_precision(char *str);
 int					is_cast(char *str);
 int					is_conversion(char *str);
 void				ft_flag_activation(t_printf **printf);
-void				ft_width_activation(t_printf **printf);
-void				ft_precision_activation(t_printf **printf);
+void				ft_width_activation(t_printf **printf, va_list apointer);
+void				ft_precision_activation(t_printf **printf, va_list apointer);
 void				ft_cast_activation(t_printf **printf);
-void				ft_what_is_love(t_printf **printf, va_list argPointer);
-void				ft_is_decimal(t_printf **printf, va_list argPointer);
-void				ft_is_unsigned(t_printf **printf, va_list argPointer);
-void				ft_is_char(t_printf **printf, va_list argPointer);
-void				ft_is_string(t_printf **printf, va_list argPointer);
-void				ft_base_octo(t_printf **printf, va_list argPointer);
-void				ft_base_hexa(t_printf **printf, va_list argPointer);
+void				ft_what_is_love(t_printf **printf, va_list apointer);
+void				ft_is_decimal(t_printf **printf, va_list apointer);
+void				ft_is_unsigned(t_printf **printf, va_list apointer);
+void				ft_is_char(t_printf **printf, va_list apointer);
+void				ft_is_string(t_printf **printf, va_list apointer);
+void				ft_base_octo(t_printf **printf, va_list apointer);
+void				ft_base_hexa(t_printf **printf, va_list apointer);
 void				ft_print_width(t_printf **print, int qnt);
 void				ft_char_precision_n_width(t_printf **printf, char c);
-void				ft_xo_precision_n_width(t_printf **printf, char *str);
+void				ft_p_precision(t_printf **printf, char *str,
+						uintmax_t z, int qnt);
+int					ft_p_width(t_printf **printf, char *str, uintmax_t z);
+void				ft_print_width_x(t_printf **printf, int qnt);
 char				size_of(wchar_t c);
 int					size_of_str(char *str);
 int					size_of_uni_str(wchar_t *str);
@@ -98,7 +103,10 @@ char				*ft_itoa_base(intmax_t n, int base);
 char				*ft_uitoa_base(uintmax_t n, int base);
 char				*ft_strdup(const char *s1);
 size_t				ft_strlen(const char *str);
+char				*ft_strstr(const char *big, const char *little);
 void				ft_strdel(char **str);
 char				*ft_strjoin(char const *str1, char const *str2);
+
+void				ft_is_color(t_printf **printf);
 
 #endif

@@ -1,22 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putnbr.c                                        :+:      :+:    :+:   */
+/*   ft_strstr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aroi <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/03/25 10:13:00 by aroi              #+#    #+#             */
-/*   Updated: 2018/07/06 17:27:03 by aroi             ###   ########.fr       */
+/*   Created: 2018/03/22 09:45:07 by aroi              #+#    #+#             */
+/*   Updated: 2018/03/25 17:07:34 by aroi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "printf.h"
-
-void		ft_putnbr(intmax_t n)
+char	*ft_strstr(const char *big, const char *little)
 {
-	char *str;
+	int		i;
+	int		j;
+	char	*str;
 
-	str = ft_itoa(n);
-	ft_putstr(str);
-	ft_strdel(&str);
+	i = -1;
+	j = 0;
+	str = (char *)big;
+	if (little[0] == '\0')
+		return (&str[0]);
+	while (big[++i])
+	{
+		j = 0;
+		if (big[i] == little[j])
+		{
+			while (big[i++] == little[j] && little[j])
+				j++;
+			if (little[j] == '\0')
+				return (&str[i - j - 1]);
+			i -= j;
+		}
+	}
+	return (0);
 }

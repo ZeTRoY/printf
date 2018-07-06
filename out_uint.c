@@ -6,13 +6,13 @@
 /*   By: aroi <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/05 10:20:09 by aroi              #+#    #+#             */
-/*   Updated: 2018/07/05 16:35:45 by aroi             ###   ########.fr       */
+/*   Updated: 2018/07/06 15:24:07 by aroi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printf.h"
 
-void			ft_print_width(t_printf **printf, int qnt)
+void				ft_print_width(t_printf **printf, int qnt)
 {
 	while ((*printf)->width - qnt > 0 &&
 			(*printf)->width > (*printf)->precision)
@@ -26,11 +26,13 @@ void			ft_print_width(t_printf **printf, int qnt)
 static void			ft_print_nbr(uintmax_t n, int qnt)
 {
 	char *str;
+	char *tmp;
 
 	str = ft_uitoa(n);
+	tmp = str;
 	while (qnt-- > 0)
 		write(1, str++, 1);
-//	ft_strdel(&str);
+	ft_strdel(&tmp);
 }
 
 static int			ft_u_precision_n_width(t_printf **print, uintmax_t i)
@@ -61,11 +63,11 @@ static int			ft_u_precision_n_width(t_printf **print, uintmax_t i)
 	return (qnt);
 }
 
-static uintmax_t	u_cast(t_printf **printf, va_list argPointer)
+static uintmax_t	u_cast(t_printf **printf, va_list apointer)
 {
 	uintmax_t	i;
 
-	i = va_arg(argPointer, size_t);
+	i = va_arg(apointer, size_t);
 	if ((*printf)->cast == LL)
 		i = (unsigned long long)i;
 	else if ((*printf)->cast == J)
@@ -84,16 +86,16 @@ static uintmax_t	u_cast(t_printf **printf, va_list argPointer)
 	return (i);
 }
 
-void			ft_is_unsigned(t_printf **print, va_list argPointer)
+void				ft_is_unsigned(t_printf **print, va_list apointer)
 {
 	int			qnt;
 	uintmax_t	i;
-	
+
 	if (*((*print)->str) == 'u')
 		(*print)->conv = 'u';
 	else
 		(*print)->conv = 'U';
-	i = u_cast(print, argPointer);
+	i = u_cast(print, apointer);
 	qnt = ft_u_precision_n_width(print, i);
 	while (qnt-- > 0)
 		(*print)->num++;

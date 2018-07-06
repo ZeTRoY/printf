@@ -6,7 +6,7 @@
 /*   By: aroi <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/04 13:49:19 by aroi              #+#    #+#             */
-/*   Updated: 2018/07/05 13:23:09 by aroi             ###   ########.fr       */
+/*   Updated: 2018/07/06 17:25:51 by aroi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 static void		ft_print_width_s(t_printf **printf, int size)
 {
 	if ((*printf)->zero)
-		while ((*printf)->width - size > 0 && (*printf)->width - (*printf)->precision > 0)
+		while ((*printf)->width - size > 0 &&
+			(*printf)->width - (*printf)->precision > 0)
 		{
 			write(1, " ", 1);
 			(*printf)->num++;
@@ -30,73 +31,86 @@ static void		ft_print_width_s(t_printf **printf, int size)
 		}
 }
 
+static int		ft_str_zero(t_printf **print, int *size, wchar_t *str)
+{
+	int		i;
+
+	i = 0;
+	if ((*print)->precision >= 0 && *size - (*print)->precision > 0)
+	{
+		*size = (*print)->precision;
+		while (*size - size_of(str[i]) >= 0)
+		{
+			*size -= size_of(str[i++]);
+		}
+		*size = 0;
+		while (i-- > 0)
+			*size += size_of(str[i]);
+	}
+	if ((*print)->zero)
+	{
+		if ((*print)->width - (*print)->precision > 0)
+			(*print)->precision = (*print)->width;
+		(*print)->width = 0;
+	}
+	else if ((*print)->precision == -1)
+		(*print)->precision = *size;
+	return ((*print)->precision);
+}
+
 static void		ft_uni_str_precision_n_width(t_printf **print, wchar_t *str)
 {
 	int			precision;
 	int			size;
-	int			size2;
-
 
 	size = size_of_uni_str(str);
-	if (size - (*print)->precision > 0 && (*print)->precision >= 0)
-		size = (*print)->precision;
-	size2 = size;
-	if ((*print)->zero)
-	{
-		(*print)->precision = (*print)->width;
-		(*print)->width = 0;
-		precision = (*print)->precision;
-	}
-	else
-		precision = 0;
+	precision = ft_str_zero(print, &size, str);
 	if (!(*print)->minus)
 		ft_print_width_s(print, size);
-	while (precision-- - size > 0)
+	while ((*print)->zero &&
+		precision - size > 0 && ++(*print)->num)
 	{
+		precision--;
 		write(1, "0", 1);
-		(*print)->num++;
 	}
-	(*print)->num += size;
-	while (*str && size-- > 0)
+	while (*str && precision - size_of(*str) >= 0)
+	{
+		(*print)->num += size_of(*str);
+		precision -= size_of(*str);
 		ft_putchar(*str++);
+	}
 	if ((*print)->minus)
-		ft_print_width_s(print, size2);
+		ft_print_width_s(print, size);
 }
 
 static void		ft_str_precision_n_width(t_printf **print, char *str)
 {
 	int			precision;
 	int			size;
-	int			size2;
 
 	size = size_of_str(str);
 	if (size - (*print)->precision > 0 && (*print)->precision >= 0)
 		size = (*print)->precision;
-	size2 = size;
-	if ((*print)->zero)
-	{
-		if ((*print)->width - (*print)->precision > 0)
-			(*print)->precision = (*print)->width;
-		(*print)->width = 0;
-		precision = (*print)->precision;
-	}
-	else
-		precision = 0;
+	precision = ft_str_zero(print, &size, (wchar_t *)str);
 	if (!(*print)->minus)
 		ft_print_width_s(print, size);
-	while (precision-- - size > 0)
+	while ((*print)->zero &&
+		precision - size > 0 && ++(*print)->num)
 	{
+		precision--;
 		write(1, "0", 1);
-		(*print)->num++;
 	}
 	(*print)->num += size;
-	while (*str && size-- > 0)
+	while (*str && size > 0 && precision > 0)
+	{
+		precision -= size_of(*str);
 		ft_putchar(*str++);
+	}
 	if ((*print)->minus)
-		ft_print_width_s(print, size2);
+		ft_print_width_s(print, size);
 }
 
-void            ft_is_string(t_printf **printf, va_list argPointer)
+void			ft_is_string(t_printf **printf, va_list apointer)
 {
 	char	*str;
 	wchar_t	*str_u;
@@ -104,27 +118,18 @@ void            ft_is_string(t_printf **printf, va_list argPointer)
 	if (*((*printf)->str) == 's' && (*printf)->cast != L)
 	{
 		(*printf)->conv = 's';
-		if (!(str = va_arg(argPointer, char *)))
+		if (!(str = va_arg(apointer, char *)))
 			str = "(null)";
 		ft_str_precision_n_width(printf, str);
 	}
 	else
 	{
 		(*printf)->conv = 'S';
-		if (!(str_u = va_arg(argPointer, wchar_t *)))
-		{
-			str_u = (wchar_t *)malloc(sizeof(wchar_t) * 7);
-			str_u[0] = '(';
-			str_u[1] = 'n';
-			str_u[2] = 'u';
-			str_u[3] = 'l';
-			str_u[4] = 'l';
-			str_u[5] = ')';
-			str_u[6] = '\0';
-		}
-		ft_uni_str_precision_n_width(printf, str_u);
+		if (!(str_u = va_arg(apointer, wchar_t *)))
+			ft_str_precision_n_width(printf, "(null)");
+		else
+			ft_uni_str_precision_n_width(printf, str_u);
 	}
 	(*printf)->str += 1;
 	(*printf)->i += 1;
-//	ft_strdel(&s);
 }

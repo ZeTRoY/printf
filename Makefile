@@ -6,7 +6,7 @@
 #    By: aroi <marvin@42.fr>                        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/05/14 17:42:00 by aroi              #+#    #+#              #
-#    Updated: 2018/07/05 10:19:34 by aroi             ###   ########.fr        #
+#    Updated: 2018/07/06 21:34:45 by aroi             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,8 @@ NAME	= libftprintf.a
 CC		= gcc
 CFLAGS	= -Wall -Werror -Wextra
 
-SRC =	ft_atoi.c \
+SRC =	color.c \
+		ft_atoi.c \
 		ft_cast_act.c \
 		ft_count_digits.c \
 		ft_count_letters.c \
@@ -31,18 +32,21 @@ SRC =	ft_atoi.c \
 		ft_strdup.c \
 		ft_strjoin.c \
 		ft_strlen.c \
+		ft_strstr.c \
 		ft_toupper.c \
 		out_c.c \
 		out_int.c \
 		out_uint.c \
 		out_o.c \
 		out_s.c \
-		out_xp.c \
+		out_xp_part_one.c \
+		out_xp_prt_two.c \
 		printf_func.c \
 		qnt_of_bits.c \
 		what_is.c
 
-OBJ =	ft_atoi.o \
+OBJ =	color.o \
+		ft_atoi.o \
 		ft_cast_act.o \
 		ft_count_digits.o \
 		ft_count_letters.o \
@@ -58,13 +62,15 @@ OBJ =	ft_atoi.o \
 		ft_strdup.o \
 		ft_strjoin.o \
 		ft_strlen.o \
+		ft_strstr.o \
 		ft_toupper.o \
 		out_c.o \
 		out_int.o \
 		out_uint.o \
 		out_o.o \
 		out_s.o \
-		out_xp.o \
+		out_xp_prt_one.o \
+		out_xp_prt_two.o \
 		printf_func.o \
 		qnt_of_bits.o \
 		what_is.o

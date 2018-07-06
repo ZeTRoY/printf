@@ -6,7 +6,7 @@
 /*   By: aroi <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/04 13:16:21 by aroi              #+#    #+#             */
-/*   Updated: 2018/07/05 16:59:37 by aroi             ###   ########.fr       */
+/*   Updated: 2018/07/05 17:33:46 by aroi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int			size_of_str(char *str)
 	return (size);
 }
 
-char	size_of(wchar_t c)
+char		size_of(wchar_t c)
 {
 	if (c <= _7_BITS || MB_CUR_MAX != 4)
 		return (1);
