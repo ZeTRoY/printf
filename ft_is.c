@@ -6,7 +6,7 @@
 /*   By: aroi <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/27 10:00:49 by aroi              #+#    #+#             */
-/*   Updated: 2018/07/09 15:05:29 by aroi             ###   ########.fr       */
+/*   Updated: 2018/07/09 15:25:54 by aroi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,14 +28,4 @@ void			ft_what_is_love(t_printf **printf, va_list apointer)
 		ft_is_char(printf, apointer);
 	else if (*((*printf)->str) == 's' || *((*printf)->str) == 'S')
 		ft_is_string(printf, apointer);
-	else if (*((*printf)->str) == 'b' || *((*printf)->str) == 'B')
-		ft_is_bin(printf, apointer);
-	else if (*((*printf)->str) == 'k')
-		ft_is_date(printf, apointer);
-	else if (*((*printf)->str) == 'q' || *((*printf)->str) == 'Q')
-		ft_is_base(printf, apointer);
-	else if (*((*printf)->str) == 'm')
-		ft_is_bin_dec(printf, apointer);
-	else if (*((*printf)->str) == 'y')
-		ft_is_sqrt(printf, apointer);
 }
