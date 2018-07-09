@@ -6,7 +6,7 @@
 /*   By: aroi <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/12 16:29:24 by aroi              #+#    #+#             */
-/*   Updated: 2018/07/09 11:36:32 by aroi             ###   ########.fr       */
+/*   Updated: 2018/07/09 16:26:38 by aroi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int		is_precision(char *str)
 
 int		is_cast(char *str)
 {
-	if (*str == 'h' || *str == 'l' || *str == 'j' || *str == 'z' || *str == 'L')
+	if (*str == 'h' || *str == 'l' || *str == 'j' || *str == 'z')
 		return (1);
 	return (0);
 }
