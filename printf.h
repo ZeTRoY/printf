@@ -6,7 +6,7 @@
 /*   By: aroi <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/12 16:14:01 by aroi              #+#    #+#             */
-/*   Updated: 2018/07/06 21:52:05 by aroi             ###   ########.fr       */
+/*   Updated: 2018/07/09 13:32:32 by aroi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,10 @@
 # define LL	4
 # define J	5
 # define Z	6
+
+# define YEAR 1000
+# define MONTH 12
+# define DAY 30
 
 # define _00000111 7
 # define _00001111 15
@@ -46,14 +50,28 @@ typedef struct		s_printf
 	char			minus;
 	char			plus;
 	char			space;
+	char			apostrophe;
 	char			cast;
 	char			conv;
+	int				sigil;
 	int				width;
 	int				precision;
 	int				num;
 	int				i;
 	char			*str;
+	int				fd;
 }					t_printf;
+
+typedef struct		s_date
+{
+	int				year;
+	int				month;
+	int				day;
+	int				hour;
+	int				min;
+	int				sec;
+	int				n;
+}					t_date;
 
 int					ft_printf(char *str, ...);
 
@@ -61,22 +79,31 @@ t_printf			*new_printf(void);
 void				ft_printf_update(t_printf **printf);
 void				ft_del_printf(t_printf **printf);
 
+t_date				*ft_new_date(void);
+void				ft_del_date(t_date **date);
+void				print_date(t_printf **printf, int date, int specify);
+
 int					is_flag(char *str);
 int					is_width(char *str);
 int					is_precision(char *str);
 int					is_cast(char *str);
-int					is_conversion(char *str);
+int					is_conversion(char *str, int i);
 void				ft_flag_activation(t_printf **printf);
 void				ft_width_activation(t_printf **printf, va_list apointer);
-void				ft_precision_activation(t_printf **printf, va_list apointer);
+void				ft_precision_activation(t_printf **printf,
+						va_list apointer);
 void				ft_cast_activation(t_printf **printf);
 void				ft_what_is_love(t_printf **printf, va_list apointer);
 void				ft_is_decimal(t_printf **printf, va_list apointer);
 void				ft_is_unsigned(t_printf **printf, va_list apointer);
 void				ft_is_char(t_printf **printf, va_list apointer);
 void				ft_is_string(t_printf **printf, va_list apointer);
-void				ft_base_octo(t_printf **printf, va_list apointer);
-void				ft_base_hexa(t_printf **printf, va_list apointer);
+void				ft_is_bin_dec(t_printf **printf, va_list apointer);
+void				ft_is_bin(t_printf **printf, va_list apointer);
+void				ft_is_octo(t_printf **printf, va_list apointer);
+void				ft_is_hexa(t_printf **printf, va_list apointer);
+void				ft_is_base(t_printf **printf, va_list apointer);
+void				ft_is_date(t_printf **printf, va_list apointer);
 void				ft_print_width(t_printf **print, int qnt);
 void				ft_char_precision_n_width(t_printf **printf, char c);
 void				ft_p_precision(t_printf **printf, char *str,
@@ -90,9 +117,11 @@ int					size_of_uni_str(wchar_t *str);
 int					ft_count_digits_base(intmax_t i, int base);
 int					ft_count_udigits_base(uintmax_t n, int base);
 int					ft_count_letters(char *str);
-
+intmax_t			ft_pow(intmax_t n, int base);
 int					ft_isdigit(int c);
+int					ft_tolower(int c);
 int					ft_toupper(int c);
+void				ft_upper(char **str);
 void				ft_putchar(wchar_t c);
 void				ft_putstr(char const *s);
 void				ft_putnbr(intmax_t n);
@@ -107,6 +136,12 @@ char				*ft_strstr(const char *big, const char *little);
 void				ft_strdel(char **str);
 char				*ft_strjoin(char const *str1, char const *str2);
 
-void				ft_is_color(t_printf **printf);
+int					is_sigil(char *str);
+void				ft_is_sigil(t_printf **printf);
+void				ft_print_number(t_printf **printf, int qnt, char *str);
+void				ft_is_nbr_of_c(t_printf **printf, va_list apointer);
 
+void				ft_is_color(t_printf **printf);
+int					ft_sqrt(uintmax_t n);
+void				ft_is_sqrt(t_printf **printf, va_list apointer);
 #endif

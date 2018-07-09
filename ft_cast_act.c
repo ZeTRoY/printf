@@ -6,7 +6,7 @@
 /*   By: aroi <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/12 16:40:36 by aroi              #+#    #+#             */
-/*   Updated: 2018/07/06 22:13:53 by aroi             ###   ########.fr       */
+/*   Updated: 2018/07/09 10:51:47 by aroi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void			ft_flag_activation(t_printf **printf)
 {
 	while (*((*printf)->str) == '#' || *((*printf)->str) == '0' ||
 			*((*printf)->str) == '-' || *((*printf)->str) == '+' ||
-			*((*printf)->str) == ' ' || *((*printf)->str) == '*')
+			*((*printf)->str) == ' ' || *((*printf)->str) == '\'')
 	{
 		if ((*printf)->str[0] == '#')
 			(*printf)->sharp = 1;
@@ -34,6 +34,8 @@ void			ft_flag_activation(t_printf **printf)
 		}
 		else if ((*printf)->str[0] == ' ' && !(*printf)->plus)
 			(*printf)->space = 1;
+		else if ((*printf)->str[0] == '\'')
+			(*printf)->apostrophe = 1;
 		(*printf)->str++;
 		(*printf)->i++;
 	}

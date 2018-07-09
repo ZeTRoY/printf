@@ -6,7 +6,7 @@
 /*   By: aroi <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/04 13:49:19 by aroi              #+#    #+#             */
-/*   Updated: 2018/07/06 17:25:51 by aroi             ###   ########.fr       */
+/*   Updated: 2018/07/07 20:44:35 by aroi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,14 +118,18 @@ void			ft_is_string(t_printf **printf, va_list apointer)
 	if (*((*printf)->str) == 's' && (*printf)->cast != L)
 	{
 		(*printf)->conv = 's';
-		if (!(str = va_arg(apointer, char *)))
+		while ((*printf)->sigil-- > 0)
+			str = va_arg(apointer, char *);
+		if (!str)
 			str = "(null)";
 		ft_str_precision_n_width(printf, str);
 	}
 	else
 	{
 		(*printf)->conv = 'S';
-		if (!(str_u = va_arg(apointer, wchar_t *)))
+		while ((*printf)->sigil-- > 0)
+			str_u = va_arg(apointer, wchar_t *);
+		if (!str_u)
 			ft_str_precision_n_width(printf, "(null)");
 		else
 			ft_uni_str_precision_n_width(printf, str_u);

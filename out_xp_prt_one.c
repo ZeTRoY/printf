@@ -6,7 +6,7 @@
 /*   By: aroi <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/04 16:46:08 by aroi              #+#    #+#             */
-/*   Updated: 2018/07/06 15:16:31 by aroi             ###   ########.fr       */
+/*   Updated: 2018/07/09 13:29:12 by aroi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static uintmax_t	ft_cast(t_printf **printf, va_list apointer)
 	return (z);
 }
 
-static void			zerox(t_printf **print, va_list apointer, uintmax_t z)
+static void			zerox(t_printf **print, uintmax_t z)
 {
 	char		*tmp;
 	char		*string;
@@ -46,7 +46,8 @@ static void			zerox(t_printf **print, va_list apointer, uintmax_t z)
 	tmp = ft_uitoa_base(z, 16);
 	string = ft_strjoin("0x", tmp);
 	ft_strdel(&tmp);
-	while (*((*print)->str) == 'X' && string[++i])
+	while (*((*print)->str) >= 'A' && *((*print)->str) <= 'Z'
+			&& string[++i])
 		string[i] = ft_toupper(string[i]);
 	qnt = ft_p_width(print, string, z);
 	ft_p_precision(print, string, z, qnt);
@@ -82,7 +83,7 @@ static void			ft_x_precision_n_width(t_printf **printf,
 		ft_print_width_x(printf, qnt);
 }
 
-void				ft_base_hexa(t_printf **print, va_list apointer)
+void				ft_is_hexa(t_printf **print, va_list apointer)
 {
 	uintmax_t	z;
 	size_t		i;
@@ -90,7 +91,8 @@ void				ft_base_hexa(t_printf **print, va_list apointer)
 
 	i = 0;
 	(*print)->conv = *((*print)->str) == 'p' ? 'p' : 'x';
-	z = ft_cast(print, apointer);
+	while ((*print)->sigil-- > 0)
+		z = ft_cast(print, apointer);
 	if (*((*print)->str) != 'p' && !(*print)->sharp)
 	{
 		string = ft_uitoa_base(z, 16);
@@ -100,7 +102,7 @@ void				ft_base_hexa(t_printf **print, va_list apointer)
 		ft_strdel(&string);
 	}
 	else
-		zerox(print, apointer, z);
+		zerox(print, z);
 	(*print)->str++;
 	(*print)->i++;
 }

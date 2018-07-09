@@ -6,7 +6,7 @@
 /*   By: aroi <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/04 10:54:14 by aroi              #+#    #+#             */
-/*   Updated: 2018/07/05 17:15:14 by aroi             ###   ########.fr       */
+/*   Updated: 2018/07/07 20:41:36 by aroi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,13 +87,15 @@ void				ft_is_char(t_printf **printf, va_list apointer)
 	if (*((*printf)->str) == 'c' && (*printf)->cast != L)
 	{
 		(*printf)->conv = 'c';
-		c = (unsigned char)va_arg(apointer, int);
+		while ((*printf)->sigil-- > 0)
+			c = (unsigned char)va_arg(apointer, int);
 		ft_char_precision_n_width(printf, c);
 	}
 	else
 	{
 		(*printf)->conv = 'C';
-		wc = (wchar_t)va_arg(apointer, wint_t);
+		while ((*printf)->sigil-- > 0)
+			wc = (wchar_t)va_arg(apointer, wint_t);
 		ft_wchar_precision_n_width(printf, wc);
 	}
 	(*printf)->str += 1;

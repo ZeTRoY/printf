@@ -6,7 +6,7 @@
 /*   By: aroi <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/04 16:33:30 by aroi              #+#    #+#             */
-/*   Updated: 2018/07/06 15:22:15 by aroi             ###   ########.fr       */
+/*   Updated: 2018/07/09 11:17:47 by aroi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,12 +50,9 @@ static void			ft_print_width_int(t_printf **printf, intmax_t qnt)
 
 static void			ft_print_nbr(t_printf **printf, intmax_t n, int qnt)
 {
-	char	*tmp;
 	char	*str;
 	int		precision;
-	int		qnt2;
 
-	qnt2 = qnt;
 	precision = (*printf)->precision;
 	if (!(*printf)->minus)
 		ft_print_width_int(printf, qnt);
@@ -66,14 +63,10 @@ static void			ft_print_nbr(t_printf **printf, intmax_t n, int qnt)
 	while (precision-- - qnt > 0 && ++(*printf)->num)
 		write(1, "0", 1);
 	str = ft_itoa(n);
-	tmp = str;
-	if (*str == '-')
-		str++;
-	while (qnt-- > 0)
-		write(1, str++, 1);
-	ft_strdel(&tmp);
+	ft_print_number(printf, qnt, str);
+	ft_strdel(&str);
 	if ((*printf)->minus)
-		ft_print_width_int(printf, qnt2);
+		ft_print_width_int(printf, qnt);
 }
 
 static intmax_t		di_cast(t_printf **printf, va_list apointer)
@@ -108,7 +101,8 @@ void				ft_is_decimal(t_printf **printf, va_list apointer)
 		(*printf)->conv = 'd';
 	else
 		(*printf)->conv = 'D';
-	i = di_cast(printf, apointer);
+	while ((*printf)->sigil-- > 0)
+		i = di_cast(printf, apointer);
 	qnt = ft_sign_and_width(printf, i);
 	ft_print_nbr(printf, i, qnt);
 	if (i < 0 || (*printf)->plus)

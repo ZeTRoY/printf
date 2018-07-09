@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   out_o.c                                            :+:      :+:    :+:   */
+/*   out_base.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aroi <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/06/21 20:40:19 by aroi              #+#    #+#             */
-/*   Updated: 2018/07/07 20:42:14 by aroi             ###   ########.fr       */
+/*   Created: 2018/07/07 16:38:22 by aroi              #+#    #+#             */
+/*   Updated: 2018/07/07 20:40:47 by aroi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printf.h"
 
-static void			ft_print_width_o(t_printf **printf, int qnt)
+static void			ft_print_width_base(t_printf **printf, int qnt)
 {
 	while ((*printf)->width - qnt > 0 &&
 			(*printf)->width > (*printf)->precision)
@@ -23,7 +23,7 @@ static void			ft_print_width_o(t_printf **printf, int qnt)
 	}
 }
 
-static void			ft_o_precision_n_width(t_printf **printf, char *str,
+static void			ft_precision_n_width(t_printf **printf, char *str,
 						uintmax_t z)
 {
 	int		precision;
@@ -44,60 +44,83 @@ static void			ft_o_precision_n_width(t_printf **printf, char *str,
 	}
 	precision = (*printf)->precision;
 	if (!(*printf)->minus)
-		ft_print_width_o(printf, qnt);
+		ft_print_width_base(printf, qnt);
 	while (precision-- - qnt > 0 && ++(*printf)->num)
 		write(1, "0", 1);
 	while (qnt-- > 0 && *str && ++(*printf)->num)
 		write(1, str++, 1);
 	if ((*printf)->minus)
-		ft_print_width_o(printf, qnt2);
+		ft_print_width_base(printf, qnt2);
 }
 
-static uintmax_t	o_cast(t_printf **printf, va_list apointer)
+static uintmax_t	cast(t_printf **printf, va_list apointer)
 {
-	uintmax_t	i;
+	uintmax_t	z;
 
-	i = va_arg(apointer, uintmax_t);
+	z = va_arg(apointer, uintmax_t);
 	if ((*printf)->cast == LL)
-		i = (unsigned long long)i;
+		z = (unsigned long long)z;
 	else if ((*printf)->cast == Z)
-		i = (size_t)i;
-	else if ((*printf)->cast == L || *((*printf)->str) == 'O')
-		i = (unsigned long)i;
+		z = (size_t)z;
+	else if ((*printf)->cast == L || *((*printf)->str) == 'Q')
+		z = (unsigned long)z;
 	else if ((*printf)->cast != J)
-		i = (unsigned int)i;
-	if (*((*printf)->str) == 'o')
+		z = (unsigned int)z;
+	if (*((*printf)->str) == 'q')
 	{
 		if ((*printf)->cast == H)
-			i = (unsigned short)i;
+			z = (unsigned short)z;
 		else if ((*printf)->cast == HH)
-			i = (unsigned char)i;
+			z = (unsigned char)z;
 	}
-	return (i);
+	return (z);
 }
 
-void				ft_is_octo(t_printf **printf, va_list apointer)
+static int			ft_what_is_base(t_printf **printf,
+						va_list apointer, int base)
 {
+	if (base == 2)
+	{
+		ft_is_bin(printf, apointer);
+		return (0);
+	}
+	else if (base == 8)
+	{
+		ft_is_octo(printf, apointer);
+		return (0);
+	}
+	else if (base == 16)
+	{
+		ft_is_hexa(printf, apointer);
+		return (0);
+	}
+	return (1);
+}
+
+void				ft_is_base(t_printf **printf, va_list apointer)
+{
+	int			base;
 	size_t		i;
 	uintmax_t	z;
 	char		*str;
 	char		*tmp;
 
 	i = 0;
-	if (*((*printf)->str) == 'o')
-		(*printf)->conv = 'o';
-	else
-		(*printf)->conv = 'O';
+	base = va_arg(apointer, int);
+	if (!ft_what_is_base(printf, apointer, base))
+		return ;
 	while ((*printf)->sigil-- > 0)
-		z = o_cast(printf, apointer);
-	str = ft_uitoa_base(z, 8);
+		z = cast(printf, apointer);
+	str = ft_uitoa_base(z, base);
+	if (*((*printf)->str) == 'Q')
+		ft_upper(&str);
 	if ((*printf)->sharp)
 	{
 		tmp = ft_strjoin("0", str);
 		ft_strdel(&str);
 		str = tmp;
 	}
-	ft_o_precision_n_width(printf, str, z);
+	ft_precision_n_width(printf, str, z);
 	ft_strdel(&str);
 	(*printf)->str++;
 	(*printf)->i++;

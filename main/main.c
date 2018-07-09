@@ -6,7 +6,7 @@
 /*   By: aroi <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/24 19:08:50 by aroi              #+#    #+#             */
-/*   Updated: 2018/07/06 22:12:28 by aroi             ###   ########.fr       */
+/*   Updated: 2018/07/09 12:50:35 by aroi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 #include <stdio.h>
 #include <locale.h>
+
+
 
 int		main(int argc, char **argv)
 {
@@ -114,20 +116,20 @@ int		main(int argc, char **argv)
 //		printf("%25S\n\n", str);
 //		ft_printf("%7S\n", str2);
 //		printf("%7S\n", str2);
-/*
-		write(1, "=================================", 33);
-		write(1, "=================================", 33);
-		write(1, "==============\n", 15);
-		write(1, "                                      CAST\n", 43);
-		write(1, "=================================", 33);
-		write(1, "=================================", 33);
-		write(1, "==============\n", 15);
-		write(1, "ft_printf: ", 11);
-		p = ft_printf("%10.8ld\n", -2147483648);
-		printf("p: %d\nprintf:    ", p);
-		p = printf("%10.8ld\n", -21474836490);
-		printf("p: %d\n", p);
-*/
+
+		// write(1, "=================================", 33);
+		// write(1, "=================================", 33);
+		// write(1, "==============\n", 15);
+		// write(1, "                                      CAST\n", 43);
+		// write(1, "=================================", 33);
+		// write(1, "=================================", 33);
+		// write(1, "==============\n", 15);
+		// write(1, "ft_printf: ", 11);
+		// p = ft_printf("%10.8ld\n", -2147483648);
+		// printf("p: %d\nprintf:    ", p);
+		// p = printf("%10.8ld\n", -21474836490);
+		// printf("p: %d\n", p);
+
 		// ft_printf("|%%|\n");
 		// printf("|%%|\n");
 		// write(1, "ft_printf: ", 11);
@@ -147,21 +149,45 @@ int		main(int argc, char **argv)
 		// p = printf("|%zhd|\n", 4294967296);
 		// printf("p: %d\n", p);
 
-	// write(1, "ft_printf: ", 11);
-	// p = ft_printf("%4.3S", L"Jambon");
-	// printf("p: %d\nprintf:    ", p);
-	// p = printf("%4.3S", L"Jambon");
-	// printf("p: %d\n", p);
+// 	write(1, "ft_printf: ", 11);
+// 	p = ft_printf("%4.3S", L"Jambon");
+// 	printf("p: %d\nprintf:    ", p);
+// 	p = printf("%4.3S", L"Jambon");
+// 	printf("p: %d\n", p);
 
 // 		ft_printf("{xuesosredAnton}LOL{eoc} {grey}KEK{eoc} {blue}drug{eoc} {green}ty{eoc} {lightblue}pidor{eoc} \
 // {lightgreen}ili{eoc} {yellow}xuylo?{eoc} {purple}A?{eoc} {pink}A?{eoc} {lightblue}A?{eoc} \
 // {black}|%5.4d|{eoc}\n", 24);
 
-	ft_printf("{%10.*d}\n", -5, 42);
-	printf("{%10.*d}\n", -5, 42);
+// 	ft_printf("{%10.*d}\n", -5, 42);
+// 	printf("{%10.*d}\n", -5, 42);
+// 	p = ft_printf("{red}%b{eoc}\n", -1);
+// 	printf("%d\n", p);
+// 	ft_printf("%");
+// 	printf("%");
 
-	// ft_printf("%");
-	// printf("%");
+// 	printf("%f\n", -1.0);
+
+// 	p = ft_printf("%k\n", "1152.1 1 :12:0:0");
+// 	ft_printf("%d\n", p);
+
+// 	p = ft_printf("%#5.4Q\n", 12, 143);
+// 	ft_printf("%d\n", p);
+
+// 	p = ft_printf("%n\n", 798352);
+// 	ft_printf("%d\n", p);
+
+// 	p = ft_printf("%y\n", ft_atoi(argv[1]));
+// 	ft_printf ("%d\n", p);
+		int k;
+
+		double f = 1999.0;
+		write(1, "ft_printf: ", 11);
+		p = ft_printf("stringwho\n%10n", &k);
+		printf("k: %d | p: %d\nprintf:    ", k, p);
+		p = printf("stringtoo\n%10n", &k);
+		printf("k: %d | p: %d\n", k, p);
+		printf("%e\n", (double)253.0);
 	}
 	return (0);
 }
