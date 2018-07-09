@@ -6,7 +6,7 @@
 #    By: aroi <marvin@42.fr>                        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/05/14 17:42:00 by aroi              #+#    #+#              #
-#    Updated: 2018/07/09 15:06:42 by aroi             ###   ########.fr        #
+#    Updated: 2018/07/09 15:30:49 by aroi             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,6 @@ SRC =	date_func.c \
 		ft_count_digits.c \
 		ft_count_letters.c \
 		ft_is.c \
-		ft_is_sigil.c \
 		ft_isdigit.c \
 		ft_itoa.c \
 		ft_itoa_base.c \
@@ -62,7 +61,6 @@ OBJ =	date_func.o \
 		ft_count_digits.o \
 		ft_count_letters.o \
 		ft_is.o \
-		ft_is_sigil.o \
 		ft_isdigit.o \
 		ft_itoa.o \
 		ft_itoa_base.o \

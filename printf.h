@@ -6,7 +6,7 @@
 /*   By: aroi <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/12 16:14:01 by aroi              #+#    #+#             */
-/*   Updated: 2018/07/09 15:23:13 by aroi             ###   ########.fr       */
+/*   Updated: 2018/07/09 15:29:58 by aroi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,8 +134,6 @@ char				*ft_strstr(const char *big, const char *little);
 void				ft_strdel(char **str);
 char				*ft_strjoin(char const *str1, char const *str2);
 
-int					is_sigil(char *str);
-void				ft_is_sigil(t_printf **printf);
 void				ft_print_number(int qnt, char *str);
 
 int					ft_sqrt(uintmax_t n);

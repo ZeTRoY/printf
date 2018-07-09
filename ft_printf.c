@@ -6,7 +6,7 @@
 /*   By: aroi <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/19 15:18:48 by aroi              #+#    #+#             */
-/*   Updated: 2018/07/09 15:11:58 by aroi             ###   ########.fr       */
+/*   Updated: 2018/07/09 15:30:30 by aroi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,6 @@ static void		ft_what_is_it(t_printf **print, va_list apointer)
 	while (is_flag((*print)->str) || is_width((*print)->str) ||
 		is_precision((*print)->str) || is_cast((*print)->str))
 	{
-		if (is_sigil((*print)->str))
-			ft_is_sigil(print);
 		if (is_flag((*print)->str))
 			ft_flag_activation(print);
 		if (is_width((*print)->str))
