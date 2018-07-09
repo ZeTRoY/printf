@@ -6,7 +6,7 @@
 #    By: aroi <marvin@42.fr>                        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/05/14 17:42:00 by aroi              #+#    #+#              #
-#    Updated: 2018/07/09 15:04:02 by aroi             ###   ########.fr        #
+#    Updated: 2018/07/09 15:06:42 by aroi             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,7 +46,6 @@ SRC =	date_func.c \
 		out_date.c \
 		out_int.c \
 		out_uint.c \
-		out_n.c \
 		out_o.c \
 		out_s.c \
 		out_sqrt.c \
@@ -88,7 +87,6 @@ OBJ =	date_func.o \
 		out_date.o \
 		out_int.o \
 		out_uint.o \
-		out_n.o \
 		out_o.o \
 		out_s.o \
 		out_sqrt.o \
