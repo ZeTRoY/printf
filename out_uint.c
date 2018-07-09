@@ -6,7 +6,7 @@
 /*   By: aroi <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/05 10:20:09 by aroi              #+#    #+#             */
-/*   Updated: 2018/07/09 11:33:04 by aroi             ###   ########.fr       */
+/*   Updated: 2018/07/09 15:21:54 by aroi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void				ft_print_width(t_printf **printf, int qnt)
 	}
 }
 
-static void			ft_print_nbr(t_printf **printf, uintmax_t n, int qnt)
+static void			ft_print_nbr(uintmax_t n, int qnt)
 {
 	char *str;
 	char *tmp;
@@ -31,12 +31,7 @@ static void			ft_print_nbr(t_printf **printf, uintmax_t n, int qnt)
 	str = ft_uitoa(n);
 	tmp = str;
 	while (qnt-- > 0)
-	{
 		write(1, str++, 1);
-		if ((*printf)->apostrophe && qnt > 0 &&
-				qnt % 3 == 0 && ++(*printf)->num)
-			write(1, ",", 1);
-	}
 	ft_strdel(&tmp);
 }
 
@@ -62,7 +57,7 @@ static int			ft_u_precision_n_width(t_printf **print, uintmax_t i)
 		write(1, "0", 1);
 		(*print)->num++;
 	}
-	ft_print_nbr(print, i, qnt);
+	ft_print_nbr(i, qnt);
 	if ((*print)->minus)
 		ft_print_width(print, qnt);
 	return (qnt);
