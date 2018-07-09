@@ -6,7 +6,7 @@
 /*   By: aroi <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/12 16:14:01 by aroi              #+#    #+#             */
-/*   Updated: 2018/07/09 13:32:32 by aroi             ###   ########.fr       */
+/*   Updated: 2018/07/09 15:02:36 by aroi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,7 +141,6 @@ void				ft_is_sigil(t_printf **printf);
 void				ft_print_number(t_printf **printf, int qnt, char *str);
 void				ft_is_nbr_of_c(t_printf **printf, va_list apointer);
 
-void				ft_is_color(t_printf **printf);
 int					ft_sqrt(uintmax_t n);
 void				ft_is_sqrt(t_printf **printf, va_list apointer);
 #endif

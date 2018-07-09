@@ -6,7 +6,7 @@
 /*   By: aroi <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/19 15:18:48 by aroi              #+#    #+#             */
-/*   Updated: 2018/07/09 13:35:32 by aroi             ###   ########.fr       */
+/*   Updated: 2018/07/09 15:01:52 by aroi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,6 @@ int				ft_printf(char *str, ...)
 	while (str[printf->i])
 	{
 		printf->str = str + printf->i;
-		if (str[printf->i] == '{')
-			ft_is_color(&printf);
 		if (str[printf->i] != '%')
 		{
 			printf->num++;
