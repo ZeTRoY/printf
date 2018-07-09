@@ -6,7 +6,7 @@
 #    By: aroi <marvin@42.fr>                        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/05/14 17:42:00 by aroi              #+#    #+#              #
-#    Updated: 2018/07/09 13:22:46 by aroi             ###   ########.fr        #
+#    Updated: 2018/07/09 15:04:02 by aroi             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,8 +15,7 @@ NAME	= libftprintf.a
 CC		= gcc
 CFLAGS	= -Wall -Werror -Wextra
 
-SRC =	color.c \
-		date_func.c \
+SRC =	date_func.c \
 		ft_atoi.c \
 		ft_cast_act.c \
 		ft_count_digits.c \
@@ -58,8 +57,7 @@ SRC =	color.c \
 		what_is.c \
 		what_is_pt_two.c
 
-OBJ =	color.o \
-		date_func.o \
+OBJ =	date_func.o \
 		ft_atoi.o \
 		ft_cast_act.o \
 		ft_count_digits.o \
