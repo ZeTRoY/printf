@@ -1,39 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   what_is_pt_two.c                                   :+:      :+:    :+:   */
+/*   out_n.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aroi <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/07/07 20:27:32 by aroi              #+#    #+#             */
-/*   Updated: 2018/07/09 14:09:59 by aroi             ###   ########.fr       */
+/*   Created: 2018/07/09 11:40:10 by aroi              #+#    #+#             */
+/*   Updated: 2018/07/09 14:10:53 by aroi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printf.h"
 
-void	ft_print_number(t_printf **printf, int qnt, char *str)
+void		ft_is_nbr_of_c(t_printf **printf, va_list apointer)
 {
-	if (*str == '-')
-		str++;
-	while (qnt-- > 0)
-	{
-		write(1, str++, 1);
-		if ((*printf)->apostrophe && qnt > 0 &&
-				qnt % 3 == 0 && ++(*printf)->num)
-			write(1, ",", 1);
-	}
-}
+	int		*n;
 
-int		is_sigil(char *str)
-{
-	if (!ft_isdigit(*str) && *str != '-')
-		return (0);
-	if (*str == '-')
-		str++;
-	while (ft_isdigit(*str))
-		str++;
-	if (*str == '$')
-		return (1);
-	return (0);
+	while ((*printf)->sigil-- > 0)
+		n = va_arg(apointer, int *);
+	*n = (*printf)->num;
+	(*printf)->str++;
+	(*printf)->i++;
 }

@@ -6,7 +6,7 @@
 /*   By: aroi <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/19 15:18:48 by aroi              #+#    #+#             */
-/*   Updated: 2018/07/09 15:30:30 by aroi             ###   ########.fr       */
+/*   Updated: 2018/07/09 13:35:32 by aroi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,14 @@ static void		ft_what_is_it(t_printf **print, va_list apointer)
 	while (is_flag((*print)->str) || is_width((*print)->str) ||
 		is_precision((*print)->str) || is_cast((*print)->str))
 	{
+		if (is_sigil((*print)->str))
+			ft_is_sigil(print);
 		if (is_flag((*print)->str))
 			ft_flag_activation(print);
 		if (is_width((*print)->str))
-			ft_width_activation(print);
+			ft_width_activation(print, apointer);
 		if (is_precision((*print)->str))
-			ft_precision_activation(print);
+			ft_precision_activation(print, apointer);
 		if (is_cast((*print)->str))
 			ft_cast_activation(print);
 	}
@@ -46,6 +48,8 @@ int				ft_printf(char *str, ...)
 	while (str[printf->i])
 	{
 		printf->str = str + printf->i;
+		if (str[printf->i] == '{')
+			ft_is_color(&printf);
 		if (str[printf->i] != '%')
 		{
 			printf->num++;

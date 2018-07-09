@@ -6,7 +6,7 @@
 #    By: aroi <marvin@42.fr>                        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/05/14 17:42:00 by aroi              #+#    #+#              #
-#    Updated: 2018/07/09 15:30:49 by aroi             ###   ########.fr        #
+#    Updated: 2018/07/09 13:22:46 by aroi             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,12 +15,14 @@ NAME	= libftprintf.a
 CC		= gcc
 CFLAGS	= -Wall -Werror -Wextra
 
-SRC =	date_func.c \
+SRC =	color.c \
+		date_func.c \
 		ft_atoi.c \
 		ft_cast_act.c \
 		ft_count_digits.c \
 		ft_count_letters.c \
 		ft_is.c \
+		ft_is_sigil.c \
 		ft_isdigit.c \
 		ft_itoa.c \
 		ft_itoa_base.c \
@@ -45,6 +47,7 @@ SRC =	date_func.c \
 		out_date.c \
 		out_int.c \
 		out_uint.c \
+		out_n.c \
 		out_o.c \
 		out_s.c \
 		out_sqrt.c \
@@ -55,12 +58,14 @@ SRC =	date_func.c \
 		what_is.c \
 		what_is_pt_two.c
 
-OBJ =	date_func.o \
+OBJ =	color.o \
+		date_func.o \
 		ft_atoi.o \
 		ft_cast_act.o \
 		ft_count_digits.o \
 		ft_count_letters.o \
 		ft_is.o \
+		ft_is_sigil.o \
 		ft_isdigit.o \
 		ft_itoa.o \
 		ft_itoa_base.o \
@@ -85,6 +90,7 @@ OBJ =	date_func.o \
 		out_date.o \
 		out_int.o \
 		out_uint.o \
+		out_n.o \
 		out_o.o \
 		out_s.o \
 		out_sqrt.o \

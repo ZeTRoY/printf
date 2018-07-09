@@ -6,7 +6,7 @@
 /*   By: aroi <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/12 16:14:01 by aroi              #+#    #+#             */
-/*   Updated: 2018/07/09 15:29:58 by aroi             ###   ########.fr       */
+/*   Updated: 2018/07/09 13:32:32 by aroi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ typedef struct		s_printf
 	char			minus;
 	char			plus;
 	char			space;
+	char			apostrophe;
 	char			cast;
 	char			conv;
 	int				sigil;
@@ -88,8 +89,9 @@ int					is_precision(char *str);
 int					is_cast(char *str);
 int					is_conversion(char *str, int i);
 void				ft_flag_activation(t_printf **printf);
-void				ft_width_activation(t_printf **printf);
-void				ft_precision_activation(t_printf **printf);
+void				ft_width_activation(t_printf **printf, va_list apointer);
+void				ft_precision_activation(t_printf **printf,
+						va_list apointer);
 void				ft_cast_activation(t_printf **printf);
 void				ft_what_is_love(t_printf **printf, va_list apointer);
 void				ft_is_decimal(t_printf **printf, va_list apointer);
@@ -134,8 +136,12 @@ char				*ft_strstr(const char *big, const char *little);
 void				ft_strdel(char **str);
 char				*ft_strjoin(char const *str1, char const *str2);
 
-void				ft_print_number(int qnt, char *str);
+int					is_sigil(char *str);
+void				ft_is_sigil(t_printf **printf);
+void				ft_print_number(t_printf **printf, int qnt, char *str);
+void				ft_is_nbr_of_c(t_printf **printf, va_list apointer);
 
+void				ft_is_color(t_printf **printf);
 int					ft_sqrt(uintmax_t n);
 void				ft_is_sqrt(t_printf **printf, va_list apointer);
 #endif

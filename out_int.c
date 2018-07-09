@@ -6,7 +6,7 @@
 /*   By: aroi <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/04 16:33:30 by aroi              #+#    #+#             */
-/*   Updated: 2018/07/09 15:22:53 by aroi             ###   ########.fr       */
+/*   Updated: 2018/07/09 11:17:47 by aroi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ static void			ft_print_nbr(t_printf **printf, intmax_t n, int qnt)
 	while (precision-- - qnt > 0 && ++(*printf)->num)
 		write(1, "0", 1);
 	str = ft_itoa(n);
-	ft_print_number(qnt, str);
+	ft_print_number(printf, qnt, str);
 	ft_strdel(&str);
 	if ((*printf)->minus)
 		ft_print_width_int(printf, qnt);

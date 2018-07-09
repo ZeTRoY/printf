@@ -1,39 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   what_is_pt_two.c                                   :+:      :+:    :+:   */
+/*   ft_is_sigil.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aroi <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/07/07 20:27:32 by aroi              #+#    #+#             */
-/*   Updated: 2018/07/09 14:09:59 by aroi             ###   ########.fr       */
+/*   Created: 2018/07/07 20:31:12 by aroi              #+#    #+#             */
+/*   Updated: 2018/07/09 10:31:36 by aroi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printf.h"
 
-void	ft_print_number(t_printf **printf, int qnt, char *str)
+void				ft_is_sigil(t_printf **printf)
 {
-	if (*str == '-')
-		str++;
-	while (qnt-- > 0)
-	{
-		write(1, str++, 1);
-		if ((*printf)->apostrophe && qnt > 0 &&
-				qnt % 3 == 0 && ++(*printf)->num)
-			write(1, ",", 1);
-	}
-}
+	int		i;
 
-int		is_sigil(char *str)
-{
-	if (!ft_isdigit(*str) && *str != '-')
-		return (0);
-	if (*str == '-')
-		str++;
-	while (ft_isdigit(*str))
-		str++;
-	if (*str == '$')
-		return (1);
-	return (0);
+	i = ft_atoi((*printf)->str);
+	while (*((*printf)->str) != '$')
+	{
+		(*printf)->str++;
+		(*printf)->i++;
+	}
+	if (!i)
+		return ;
+	if (i < 0)
+		i *= -1;
+	(*printf)->sigil = i;
+	(*printf)->str++;
+	(*printf)->i++;
 }
