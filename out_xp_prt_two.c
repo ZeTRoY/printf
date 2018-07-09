@@ -6,7 +6,7 @@
 /*   By: aroi <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/05 18:40:44 by aroi              #+#    #+#             */
-/*   Updated: 2018/07/06 17:31:55 by aroi             ###   ########.fr       */
+/*   Updated: 2018/07/09 17:16:21 by aroi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,8 @@ int				ft_p_width(t_printf **printf, char *str, uintmax_t z)
 		qnt = ft_count_letters(str) - 2;
 	else
 		qnt = ft_count_letters(str);
-	if ((*printf)->zero)
+	if ((*printf)->zero && (*printf)->width && ((*printf)->precision == -1
+		|| (*printf)->precision - (*printf)->width > 0))
 	{
 		(*printf)->precision = (*printf)->width > 0 ? (*printf)->width : 1;
 		(*printf)->width = 0;
@@ -82,7 +83,7 @@ void			ft_p_precision(t_printf **printf, char *str,
 	int		precision;
 
 	precision = (*printf)->precision;
-	if (*((*printf)->str) == 'p' || ((*printf)->sharp && z != 0))
+	if (*((*printf)->str) == 'p' || ((*printf)->sharp && z))
 	{
 		write(1, str, 2);
 		(*printf)->num += 2;
@@ -90,12 +91,14 @@ void			ft_p_precision(t_printf **printf, char *str,
 			(*printf)->width -= 2;
 	}
 	str += 2;
+	if ((*printf)->width > 0)
+		qnt -= 2;
 	while (precision - qnt > 0 && ++(*printf)->num)
 	{
 		write(1, "0", 1);
 		precision--;
 	}
-	while ((z != 0 || (*printf)->precision != 0) && *str &&
+	while ((z || (*printf)->precision) && *str &&
 			++(*printf)->num)
 		write(1, str++, 1);
 	if ((*printf)->minus)

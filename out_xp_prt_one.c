@@ -6,7 +6,7 @@
 /*   By: aroi <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/04 16:46:08 by aroi              #+#    #+#             */
-/*   Updated: 2018/07/09 13:29:12 by aroi             ###   ########.fr       */
+/*   Updated: 2018/07/09 17:10:32 by aroi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,8 @@ static void			ft_x_precision_n_width(t_printf **printf,
 	int		precision;
 	int		qnt;
 
-	if ((*printf)->zero)
+	if ((*printf)->zero && (*printf)->width && ((*printf)->precision == -1
+		|| (*printf)->precision - (*printf)->width > 0))
 	{
 		(*printf)->precision = (*printf)->width;
 		(*printf)->width = 0;

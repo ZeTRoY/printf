@@ -6,7 +6,7 @@
 /*   By: aroi <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/12 16:14:01 by aroi              #+#    #+#             */
-/*   Updated: 2018/07/09 13:32:32 by aroi             ###   ########.fr       */
+/*   Updated: 2018/07/09 15:42:59 by aroi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,6 @@ typedef struct		s_printf
 	int				num;
 	int				i;
 	char			*str;
-	int				fd;
 }					t_printf;
 
 typedef struct		s_date
