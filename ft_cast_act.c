@@ -6,7 +6,7 @@
 /*   By: aroi <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/12 16:40:36 by aroi              #+#    #+#             */
-/*   Updated: 2018/07/09 10:51:47 by aroi             ###   ########.fr       */
+/*   Updated: 2018/07/09 15:11:38 by aroi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,57 +41,33 @@ void			ft_flag_activation(t_printf **printf)
 	}
 }
 
-void			ft_width_activation(t_printf **print, va_list apointer)
+void			ft_width_activation(t_printf **print)
 {
 	int qnt;
 
-	if (*((*print)->str) == 42)
+	(*print)->width = ft_atoi((*print)->str);
+	qnt = ft_count_digits_base((*print)->width, 10);
+	while (qnt-- > 0)
 	{
-		if (((*print)->width = va_arg(apointer, int)) < 0)
-		{
-			(*print)->minus = 1;
-			(*print)->width = -(*print)->width;
-		}
 		(*print)->str++;
 		(*print)->i++;
 	}
-	else
-	{
-		(*print)->width = ft_atoi((*print)->str);
-		qnt = ft_count_digits_base((*print)->width, 10);
-		while (qnt-- > 0)
-		{
-			(*print)->str++;
-			(*print)->i++;
-		}
-	}
 }
 
-void			ft_precision_activation(t_printf **print,
-					va_list apointer)
+void			ft_precision_activation(t_printf **print)
 {
 	int qnt;
 
 	(*print)->str++;
 	(*print)->i++;
-	if (*((*print)->str) == 42)
+	(*print)->precision = ft_atoi((*print)->str);
+	qnt = ft_count_digits_base((*print)->precision, 10);
+	if (!ft_isdigit(*((*print)->str)))
+		qnt = 0;
+	while (qnt-- > 0)
 	{
-		if (((*print)->precision = va_arg(apointer, int)) < 0)
-			(*print)->precision = -1;
 		(*print)->str++;
 		(*print)->i++;
-	}
-	else
-	{
-		(*print)->precision = ft_atoi((*print)->str);
-		qnt = ft_count_digits_base((*print)->precision, 10);
-		if (!ft_isdigit(*((*print)->str)))
-			qnt = 0;
-		while (qnt-- > 0)
-		{
-			(*print)->str++;
-			(*print)->i++;
-		}
 	}
 }
 

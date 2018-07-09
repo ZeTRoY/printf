@@ -6,7 +6,7 @@
 /*   By: aroi <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/19 15:18:48 by aroi              #+#    #+#             */
-/*   Updated: 2018/07/09 15:01:52 by aroi             ###   ########.fr       */
+/*   Updated: 2018/07/09 15:11:58 by aroi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@ static void		ft_what_is_it(t_printf **print, va_list apointer)
 		if (is_flag((*print)->str))
 			ft_flag_activation(print);
 		if (is_width((*print)->str))
-			ft_width_activation(print, apointer);
+			ft_width_activation(print);
 		if (is_precision((*print)->str))
-			ft_precision_activation(print, apointer);
+			ft_precision_activation(print);
 		if (is_cast((*print)->str))
 			ft_cast_activation(print);
 	}

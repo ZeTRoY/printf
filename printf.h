@@ -6,7 +6,7 @@
 /*   By: aroi <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/12 16:14:01 by aroi              #+#    #+#             */
-/*   Updated: 2018/07/09 15:05:47 by aroi             ###   ########.fr       */
+/*   Updated: 2018/07/09 15:11:04 by aroi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,9 +89,8 @@ int					is_precision(char *str);
 int					is_cast(char *str);
 int					is_conversion(char *str, int i);
 void				ft_flag_activation(t_printf **printf);
-void				ft_width_activation(t_printf **printf, va_list apointer);
-void				ft_precision_activation(t_printf **printf,
-						va_list apointer);
+void				ft_width_activation(t_printf **printf);
+void				ft_precision_activation(t_printf **printf);
 void				ft_cast_activation(t_printf **printf);
 void				ft_what_is_love(t_printf **printf, va_list apointer);
 void				ft_is_decimal(t_printf **printf, va_list apointer);
