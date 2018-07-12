@@ -6,7 +6,7 @@
 /*   By: aroi <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/04 13:49:19 by aroi              #+#    #+#             */
-/*   Updated: 2018/07/07 20:44:35 by aroi             ###   ########.fr       */
+/*   Updated: 2018/07/12 11:58:42 by aroi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,14 +47,14 @@ static int		ft_str_zero(t_printf **print, int *size, wchar_t *str)
 		while (i-- > 0)
 			*size += size_of(str[i]);
 	}
+	if ((*print)->width == 0 || (*print)->precision == -1)
+		(*print)->precision = *size;
 	if ((*print)->zero)
 	{
-		if ((*print)->width - (*print)->precision > 0)
+		if ((*print)->width)
 			(*print)->precision = (*print)->width;
 		(*print)->width = 0;
 	}
-	else if ((*print)->precision == -1)
-		(*print)->precision = *size;
 	return ((*print)->precision);
 }
 

@@ -6,7 +6,7 @@
 /*   By: aroi <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/04 16:33:30 by aroi              #+#    #+#             */
-/*   Updated: 2018/07/09 11:17:47 by aroi             ###   ########.fr       */
+/*   Updated: 2018/07/12 18:10:21 by aroi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ static int			ft_sign_and_width(t_printf **printf, intmax_t i)
 	int qnt;
 
 	qnt = ft_count_digits_base(i, 10);
+	if ((*printf)->apostrophe)
+		(*printf)->apostrophe = (qnt - 1) / 3;
 	if (i < 0 || (*printf)->plus)
 		(*printf)->width--;
 	else if ((*printf)->space)
@@ -39,7 +41,7 @@ static int			ft_sign_and_width(t_printf **printf, intmax_t i)
 
 static void			ft_print_width_int(t_printf **printf, intmax_t qnt)
 {
-	while ((intmax_t)(*printf)->width - qnt > 0 &&
+	while ((intmax_t)(*printf)->width - qnt - (*printf)->apostrophe > 0 &&
 			(*printf)->width > (*printf)->precision)
 	{
 		write(1, " ", 1);
@@ -60,7 +62,7 @@ static void			ft_print_nbr(t_printf **printf, intmax_t n, int qnt)
 		write(1, "-", 1);
 	else if ((*printf)->plus)
 		write(1, "+", 1);
-	while (precision-- - qnt > 0 && ++(*printf)->num)
+	while (precision-- - qnt - (*printf)->apostrophe > 0 && ++(*printf)->num)
 		write(1, "0", 1);
 	str = ft_itoa(n);
 	ft_print_number(printf, qnt, str);
@@ -76,8 +78,8 @@ static intmax_t		di_cast(t_printf **printf, va_list apointer)
 	i = va_arg(apointer, intmax_t);
 	if ((*printf)->cast == LL)
 		i = (long long)i;
-	else if ((*printf)->cast == Z)
-		i = (size_t)i;
+	else if ((*printf)->cast == Z || (*printf)->cast == T)
+		i = (ptrdiff_t)i;
 	else if ((*printf)->cast == L || (*printf)->conv == 'D')
 		i = (long)i;
 	else if ((*printf)->cast != J)

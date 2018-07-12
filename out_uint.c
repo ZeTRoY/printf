@@ -6,7 +6,7 @@
 /*   By: aroi <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/05 10:20:09 by aroi              #+#    #+#             */
-/*   Updated: 2018/07/09 11:33:04 by aroi             ###   ########.fr       */
+/*   Updated: 2018/07/12 18:38:51 by aroi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void				ft_print_width(t_printf **printf, int qnt)
 {
-	while ((*printf)->width - qnt > 0 &&
+	while ((*printf)->width - qnt - (*printf)->apostrophe > 0 &&
 			(*printf)->width > (*printf)->precision)
 	{
 		write(1, " ", 1);
@@ -40,15 +40,11 @@ static void			ft_print_nbr(t_printf **printf, uintmax_t n, int qnt)
 	ft_strdel(&tmp);
 }
 
-static int			ft_u_precision_n_width(t_printf **print, uintmax_t i)
+static int			ft_u_precision_n_width(t_printf **print, uintmax_t i,
+						int qnt)
 {
 	int	precision;
-	int qnt;
 
-	if (i == 0 && (*print)->precision >= 0)
-		qnt = 0;
-	else
-		qnt = ft_count_udigits_base(i, 10);
 	if ((*print)->zero && (*print)->precision < 0)
 	{
 		(*print)->precision = (*print)->width;
@@ -57,7 +53,7 @@ static int			ft_u_precision_n_width(t_printf **print, uintmax_t i)
 	precision = (*print)->precision;
 	if (!(*print)->minus)
 		ft_print_width(print, qnt);
-	while (precision-- - qnt > 0)
+	while (precision-- - qnt - (*print)->apostrophe > 0)
 	{
 		write(1, "0", 1);
 		(*print)->num++;
@@ -79,7 +75,7 @@ static uintmax_t	u_cast(t_printf **printf, va_list apointer)
 		i = (uintmax_t)i;
 	else if ((*printf)->cast == L || *((*printf)->str) == 'U')
 		i = (unsigned long)i;
-	else if ((*printf)->cast != Z)
+	else if ((*printf)->cast != Z && (*printf)->cast != T)
 		i = (unsigned int)i;
 	if (*((*printf)->str) == 'u')
 	{
@@ -102,7 +98,13 @@ void				ft_is_unsigned(t_printf **print, va_list apointer)
 		(*print)->conv = 'U';
 	while ((*print)->sigil-- > 0)
 		i = u_cast(print, apointer);
-	qnt = ft_u_precision_n_width(print, i);
+	if (i == 0 && (*print)->precision >= 0)
+		qnt = 0;
+	else
+		qnt = ft_count_udigits_base(i, 10);
+	if ((*print)->apostrophe)
+		(*print)->apostrophe = (qnt - 1) / 3;
+	ft_u_precision_n_width(print, i, qnt);
 	while (qnt-- > 0)
 		(*print)->num++;
 	(*print)->str += 1;

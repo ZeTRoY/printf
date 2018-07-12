@@ -6,7 +6,7 @@
 /*   By: aroi <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/04 10:54:14 by aroi              #+#    #+#             */
-/*   Updated: 2018/07/07 20:41:36 by aroi             ###   ########.fr       */
+/*   Updated: 2018/07/12 09:53:28 by aroi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,7 @@
 
 static void			ft_print_width_c(t_printf **printf, char size)
 {
-	while ((*printf)->width - (int)size > 0 &&
-			(*printf)->width - (*printf)->precision > 0)
+	while ((*printf)->width - (int)size > 0)
 	{
 		write(1, " ", 1);
 		(*printf)->num++;
@@ -31,9 +30,9 @@ static void			ft_wchar_precision_n_width(t_printf **printf, wchar_t c)
 
 	if ((*printf)->zero)
 	{
-		if ((*printf)->width - (*printf)->precision > 0)
-			(*printf)->precision = (*printf)->width;
+		(*printf)->precision = (*printf)->width;
 		precision = (*printf)->precision;
+		(*printf)->width = 0;
 	}
 	else
 		precision = 0;
@@ -51,32 +50,32 @@ static void			ft_wchar_precision_n_width(t_printf **printf, wchar_t c)
 		ft_print_width_c(printf, size2);
 }
 
-void				ft_char_precision_n_width(t_printf **printf, char c)
+void				ft_char_precision_n_width(t_printf **print, char c)
 {
 	int		precision;
 	int		size;
 	int		size2;
 
-	if ((*printf)->zero)
+	if ((*print)->zero && (*print)->width > 0)
 	{
-		if ((*printf)->width - (*printf)->precision > 0)
-			(*printf)->precision = (*printf)->width;
-		precision = (*printf)->precision;
+		(*print)->precision = (*print)->width;
+		precision = (*print)->precision;
+		(*print)->width = 0;
 	}
 	else
 		precision = 0;
 	size = (int)size_of(c);
 	size2 = size;
-	if (!(*printf)->minus)
-		ft_print_width_c(printf, size);
-	while ((*printf)->zero && precision-- - size > 0 &&
-		++(*printf)->num)
+	if (!(*print)->minus)
+		ft_print_width_c(print, size);
+	while ((*print)->zero && precision-- - size > 0 &&
+		++(*print)->num)
 		write(1, "0", 1);
 	while (size-- > 0)
-		(*printf)->num++;
+		(*print)->num++;
 	ft_putchar(c);
-	if ((*printf)->minus)
-		ft_print_width_c(printf, size2);
+	if ((*print)->minus)
+		ft_print_width_c(print, size2);
 }
 
 void				ft_is_char(t_printf **printf, va_list apointer)

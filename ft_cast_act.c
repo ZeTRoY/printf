@@ -6,7 +6,7 @@
 /*   By: aroi <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/12 16:40:36 by aroi              #+#    #+#             */
-/*   Updated: 2018/07/09 10:51:47 by aroi             ###   ########.fr       */
+/*   Updated: 2018/07/12 19:13:11 by aroi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,69 +41,75 @@ void			ft_flag_activation(t_printf **printf)
 	}
 }
 
-void			ft_width_activation(t_printf **print, va_list apointer)
+void			ft_width_activation(t_printf **printf, va_list apointer)
 {
-	int qnt;
-
-	if (*((*print)->str) == 42)
+	if (*((*printf)->str) == 42)
 	{
-		if (((*print)->width = va_arg(apointer, int)) < 0)
+		(*printf)->width = va_arg(apointer, int);
+		(*printf)->i++;
+		(*printf)->str++;
+		if ((*printf)->width < 0)
 		{
-			(*print)->minus = 1;
-			(*print)->width = -(*print)->width;
+			(*printf)->minus = 1;
+			(*printf)->zero = 0;
+			(*printf)->width *= -1;
 		}
-		(*print)->str++;
-		(*print)->i++;
 	}
 	else
 	{
-		(*print)->width = ft_atoi((*print)->str);
-		qnt = ft_count_digits_base((*print)->width, 10);
-		while (qnt-- > 0)
+		(*printf)->width = ft_atoi((*printf)->str);
+		while (ft_isdigit(*((*printf)->str)))
 		{
-			(*print)->str++;
-			(*print)->i++;
+			(*printf)->str++;
+			(*printf)->i++;
 		}
 	}
 }
 
-void			ft_precision_activation(t_printf **print,
-					va_list apointer)
+void			ft_precision_activation(t_printf **printf, va_list apointer)
 {
-	int qnt;
-
-	(*print)->str++;
-	(*print)->i++;
-	if (*((*print)->str) == 42)
+	(*printf)->str++;
+	(*printf)->i++;
+	if (*((*printf)->str) == 42)
 	{
-		if (((*print)->precision = va_arg(apointer, int)) < 0)
-			(*print)->precision = -1;
-		(*print)->str++;
-		(*print)->i++;
+		(*printf)->precision = va_arg(apointer, int);
+		(*printf)->i++;
+		(*printf)->str++;
+		if ((*printf)->precision < 0)
+			(*printf)->precision = -1;
 	}
 	else
 	{
-		(*print)->precision = ft_atoi((*print)->str);
-		qnt = ft_count_digits_base((*print)->precision, 10);
-		if (!ft_isdigit(*((*print)->str)))
-			qnt = 0;
-		while (qnt-- > 0)
+		(*printf)->precision = ft_atoi((*printf)->str);
+		while (ft_isdigit(*((*printf)->str)))
 		{
-			(*print)->str++;
-			(*print)->i++;
+			(*printf)->str++;
+			(*printf)->i++;
 		}
 	}
+}
+
+static void		ft_cast(t_printf **printf)
+{
+	if ((*printf)->str[0] == 't' && T > (*printf)->cast)
+		(*printf)->cast = T;
+	else if ((*printf)->str[0] == 'z' && Z > (*printf)->cast)
+		(*printf)->cast = Z;
+	else if ((*printf)->str[0] == 'j' && J > (*printf)->cast)
+		(*printf)->cast = J;
 }
 
 void			ft_cast_activation(t_printf **printf)
 {
 	while ((*printf)->str[0] == 'h' || (*printf)->str[0] == 'l' ||
-			(*printf)->str[0] == 'j' || (*printf)->str[0] == 'z')
+			(*printf)->str[0] == 'j' || (*printf)->str[0] == 'z' ||
+			(*printf)->str[0] == 't' || (*printf)->str[0] == 'L')
 	{
-		if ((*printf)->str[0] == 'z' && Z > (*printf)->cast)
-			(*printf)->cast = Z;
-		else if ((*printf)->str[0] == 'j' && J > (*printf)->cast)
-			(*printf)->cast = J;
+		if ((*printf)->str[0] == 'L' && BL > (*printf)->cast)
+			(*printf)->cast = BL;
+		else if ((*printf)->str[0] == 't' || (*printf)->str[0] == 'z' ||
+			(*printf)->str[0] == 'j')
+			ft_cast(printf);
 		else if ((*printf)->str[0] == 'l' && (*printf)->str[1] == 'l' &&
 				LL > (*printf)->cast && (*printf)->str++ && (*printf)->i++)
 			(*printf)->cast = LL;
@@ -112,12 +118,8 @@ void			ft_cast_activation(t_printf **printf)
 		else if ((*printf)->str[0] == 'h' && (*printf)->str[1] != 'h' &&
 				H > (*printf)->cast)
 			(*printf)->cast = H;
-		else if (HH > (*printf)->cast)
-		{
+		else if (HH > (*printf)->cast && ++(*printf)->str && ++(*printf)->i)
 			(*printf)->cast = HH;
-			(*printf)->str++;
-			(*printf)->i++;
-		}
 		(*printf)->i++;
 		(*printf)->str++;
 	}

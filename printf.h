@@ -6,7 +6,7 @@
 /*   By: aroi <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/12 16:14:01 by aroi              #+#    #+#             */
-/*   Updated: 2018/07/09 15:42:59 by aroi             ###   ########.fr       */
+/*   Updated: 2018/07/12 19:01:21 by aroi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,9 @@
 # define L	3
 # define LL	4
 # define J	5
-# define Z	6
+# define T	6
+# define Z	7
+# define BL 8
 
 # define YEAR 1000
 # define MONTH 12
@@ -42,6 +44,7 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <stdarg.h>
+# include <stddef.h>
 
 typedef struct		s_printf
 {

@@ -6,13 +6,13 @@
 /*   By: aroi <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/12 16:59:58 by aroi              #+#    #+#             */
-/*   Updated: 2018/07/09 10:30:01 by aroi             ###   ########.fr       */
+/*   Updated: 2018/07/12 19:01:46 by aroi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printf.h"
 
-t_printf	*new_printf(void)
+t_printf			*new_printf(void)
 {
 	t_printf *printf;
 
@@ -35,7 +35,7 @@ t_printf	*new_printf(void)
 	return (printf);
 }
 
-void		ft_printf_update(t_printf **printf)
+void				ft_printf_update(t_printf **printf)
 {
 	(*printf)->sharp = 0;
 	(*printf)->zero = 0;
@@ -50,7 +50,7 @@ void		ft_printf_update(t_printf **printf)
 	(*printf)->precision = -1;
 }
 
-void		ft_del_printf(t_printf **printf)
+void				ft_del_printf(t_printf **printf)
 {
 	if (!*printf)
 		return ;

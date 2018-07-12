@@ -6,7 +6,7 @@
 /*   By: aroi <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/04 16:46:08 by aroi              #+#    #+#             */
-/*   Updated: 2018/07/09 17:10:32 by aroi             ###   ########.fr       */
+/*   Updated: 2018/07/12 18:09:43 by aroi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static uintmax_t	ft_cast(t_printf **printf, va_list apointer)
 		z = (unsigned long)z;
 	else if ((*printf)->cast == LL)
 		z = (unsigned long long)z;
-	else if ((*printf)->cast == Z)
+	else if ((*printf)->cast == Z || (*printf)->cast == T)
 		z = (size_t)z;
 	else if ((*printf)->cast != J)
 		z = (unsigned int)z;
